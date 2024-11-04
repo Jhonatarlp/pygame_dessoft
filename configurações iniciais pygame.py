@@ -1,10 +1,16 @@
 import pygame
-import sys
+from pygame.locals import *
+from sys import exit 
 
 # Configuração inicial
 pygame.init()
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+largura = 1200
+altura = 800
+screen = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Tomb of the Mask")
-clock = pygame.time.Clock()
 
+while True:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            exit()
+    pygame.display.update
