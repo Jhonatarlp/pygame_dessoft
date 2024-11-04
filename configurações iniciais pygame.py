@@ -4,8 +4,8 @@ from sys import exit
 
 # Configuração inicial
 pygame.init()
-largura = 640
-altura = 480
+largura = 1200
+altura = 800
 screen = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Tomb of the Mask")
 
