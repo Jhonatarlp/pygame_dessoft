@@ -3,11 +3,10 @@ from pathlib import Path
 
 # Estabelece a pasta que contem as figuras e sons.
 IMG_DIR = Path(__file__).parent.parent / 'img'
-
 # Dados gerais do jogo.
-TITULO = 'Exemplo de Tiles'
-LARGURA = 480 # Largura da tela
-ALTURA = 600 # Altura da tela
+TITULO = 'Tomb of Foxy'
+LARGURA = 1000 # Largura da tela
+ALTURA = 800 # Altura da tela
 TAMANHO_QUADRADO = 40 # Tamanho de cada quadrado (tile)
 
 # Define algumas variáveis com as cores básicas
