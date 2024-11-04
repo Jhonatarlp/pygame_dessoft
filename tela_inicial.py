@@ -46,3 +46,5 @@ while game:
 
     # Atualizar a tela
     pygame.display.update()
+
+#movimentação do personagem 
