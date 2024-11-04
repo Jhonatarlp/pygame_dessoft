@@ -12,7 +12,7 @@ altura = 800
 screen = pygame.display.set_mode((largura, altura))
 
 pygame.display.set_caption("Tomb of the Mask")
-image = pygame.image.load('assets\tomb_of_foxy_inicio.png').convert()
+# image = pygame.image.load('assets\tomb_of_foxy_inicio.png').convert()
 
 while True:
     for event in pygame.event.get():
