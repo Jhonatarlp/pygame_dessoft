@@ -8,16 +8,16 @@ game = True
 # Configuração inicial
 pygame.init()
 
-musica_de_fundo = pygame.mixer.music.load('fundo.mp3')
+musica_de_fundo = pygame.mixer.music.load('assets/fundo.mp3')
 pygame.mixer.music.play(-1)
 largura = 1200
 altura = 800
 screen = pygame.display.set_mode((largura, altura))
 
 pygame.display.set_caption("Tomb of the Mask")
-# image = pygame.image.load('assets\tomb_of_foxy_inicio.png').convert()
+image = pygame.image.load('assets/tomb_of_foxy_inicio.png').convert()
 
-while True:
+while game:
     for event in pygame.event.get():
         if event.type == QUIT:
             exit()
