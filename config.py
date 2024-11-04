@@ -16,12 +16,12 @@ screen = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Tomb of the Mask")
 
 # Texto de start
-font = pygame.font.SysFont(None, 50)
+font = pygame.font.SysFont(None, 22)
 text_color = (255, 255, 255)
 messagem_to_start = "Aperte qualquer botão para iniciar!"
 
 texto = font.render(messagem_to_start, True, text_color)
-text_rect = texto.get_rect(center=(largura // 2, altura - 100))
+text_rect = texto.get_rect(center=(largura // 2, altura - 203))
 
 # Carregar e redimensionar imagem de fundo
 image = pygame.image.load('assets/tomb_of_foxy_inicio.png').convert()
