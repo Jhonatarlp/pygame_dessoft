@@ -8,3 +8,6 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Tomb of the Mask")
 clock = pygame.time.Clock()
 
+
+
+i = 1
