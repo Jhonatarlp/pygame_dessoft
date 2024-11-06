@@ -4,6 +4,7 @@ from sys import exit
 from os import path
 import constantes
 from classes import *
+import classes
 
 # Inicialização do Pygame
 pygame.init()
