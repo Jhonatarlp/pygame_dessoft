@@ -5,8 +5,8 @@ pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
 pygame.display.set_caption(constantes.TITULO)
-#clock = pygame.time.Clock()
-self.esta_rodando = True 
+clock = pygame.time.Clock()
+
     
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
