@@ -1,6 +1,10 @@
 from tela_inicial import *
 from constantes import *
+<<<<<<< HEAD
 import pygame
+=======
+import constantes
+>>>>>>> main
 #configurações iniciais 
 pygame.init()
 pygame.mixer.init()

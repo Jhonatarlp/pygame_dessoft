@@ -4,6 +4,7 @@ from sys import exit
 from os import path
 import constantes
 from classes import *
+import classes
 
 # Inicialização do Pygame
 pygame.init()
@@ -36,9 +37,15 @@ while game:
         if event.type == QUIT:
             pygame.quit()
             exit()
-        elif event.type == KEYDOWN:  
-            game = False  
-
+        if event.type == KEYDOWN():
+            if event.key == pygame.K_LEFT:
+                movimentacao = Jogador.movimentar("esquerda")
+            elif event.key == pygame.K_RIGHT:
+                movimentacao = Jogador.movimentar("direita")
+            elif event.key == pygame.K_UP:
+                movimentacao = Jogador.movimentar("cima")
+            elif event.key == pygame.K_DOWN:
+                movimentacao = Jogador.movimentar("baixo")
     # Desenhar a imagem de fundo
     screen.blit(image, (0, 0)) 
 
