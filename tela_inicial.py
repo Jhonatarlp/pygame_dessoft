@@ -3,6 +3,7 @@ from pygame.locals import *
 from sys import exit 
 from os import path
 import constantes
+from classes import *
 
 # Inicialização do Pygame
 pygame.init()

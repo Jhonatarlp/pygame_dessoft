@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import pygame
 
 # Estabelece a pasta que contem as figuras e sons.
 IMG_DIR = Path(__file__).parent.parent / 'img'
