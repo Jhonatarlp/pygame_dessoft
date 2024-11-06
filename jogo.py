@@ -3,6 +3,7 @@
 # Importando as bibliotecas necessárias.
 import pygame
 from constantes import *
+from tela_inicial import *
 
 
 # Classe Tile que representa um quadrado do mapa
