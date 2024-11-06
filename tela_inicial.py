@@ -36,8 +36,8 @@ while game:
         if event.type == QUIT:
             pygame.quit()
             exit()
-        elif event.type == KEYDOWN:  
-            game = False  
+     
+            
 
     # Desenhar a imagem de fundo
     screen.blit(image, (0, 0)) 
