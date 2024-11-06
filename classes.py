@@ -1,10 +1,11 @@
 from tela_inicial import *
+from constantes import *
 #configurações iniciais 
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
 pygame.display.set_caption(constantes.TITULO)
-self.relogio = pygame.time.Clock()
+#clock = pygame.time.Clock()
 self.esta_rodando = True 
     
 # Classe Tile (representa um caminho)
@@ -23,8 +24,26 @@ class Tile(pygame.sprite.Sprite):
         self.rect.x = column * constantes.TAMANHO_QUADRADO  # Posição X com base na coluna e no tamanho do tile
         self.rect.y = row * constantes.TAMANHO_QUADRADO     # Posição Y com base na linha e no tamanho do tile
 
-    def jogador(pygame.sprite.Sprite):
-        #fazer mov jogador 
+class Jogador:
+    def __init__(self, x, y, velocidade):
+        self.posicao = pygame.Vector2(x, y)
+        self.velocidade = velocidade
+        self.direcao = None
+
+    def movimentar(self):
+        # Movimenta o jogador com base na direção atual
+        if self.direcao == "cima":
+            self.posicao.y -= self.velocidade
+        elif self.direcao == "baixo":
+            self.posicao.y += self.velocidade
+        elif self.direcao == "esquerda":
+            self.posicao.x -= self.velocidade
+        elif self.direcao == "direita":
+            self.posicao.x += self.velocidade
+
+    def desenhar(self, tela):
+        # Desenha o jogador como um quadrado azul
+        pygame.draw.rect(tela, AZUL, (self.posicao.x, self.posicao.y, 40, 40))
 
     def novo_jogo(self):
         self.all.sprites = pygame.sprite.Group()
@@ -34,7 +53,7 @@ class Tile(pygame.sprite.Sprite):
     def rodar(self):
         self.jogando = True 
         while self.jogando:
-            self relogio.ticket(constantes.FPS)
+            self.clock.ticket(constantes.FPS)
             self.eventos()
             self.refresh_sprites()
             self.desenhar_sprites()

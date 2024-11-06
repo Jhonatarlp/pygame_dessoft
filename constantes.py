@@ -8,7 +8,8 @@ TITULO = 'Tomb of Foxy'
 LARGURA = 1000 # Largura da tela
 ALTURA = 800 # Altura da tela
 TAMANHO_QUADRADO = 40 # Tamanho de cada quadrado (tile)
-#FPS
+#varoiavel para ajuste de velocidade
+clock = pygame.time.Clock()
 FPS = 30 
 # Define algumas variáveis com as cores básicas
 BRANCO = (255, 255, 255)
