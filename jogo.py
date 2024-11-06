@@ -6,6 +6,7 @@ from constantes import *
 from tela_inicial import *
 
 
+
 # Classe Tile que representa um quadrado do mapa
 class Tile(pygame.sprite.Sprite):
 
