@@ -5,8 +5,6 @@ import pygame
 from constantes import *
 from tela_inicial import *
 
-
-
 # Classe Tile que representa um quadrado do mapa
 class Tile(pygame.sprite.Sprite):
 
@@ -33,16 +31,15 @@ def inicializa():
 
     # Cada tile é uma imagem quadrada de TILE_SIZE x TILE_SIZE pixels.
     assets = {
-        GRAMA_: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-grass.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA1: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand1.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA2: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand2.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA3: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand3.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA4: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand4.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA5: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand5.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA6: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand6.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA7: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand7.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AREIA8: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand8.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
-        AGUA__: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-water.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MCBD: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima_baixo_e_direita.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MCBE: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima_baixo_e_esquerda.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MCB: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima_e_baixo.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MC: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MB: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/baixo.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        E: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/espinhos.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MTL: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand6.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        V: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/vazio.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+
     }
     # Cria um grupo de tiles.
     mapa_tiles = pygame.sprite.Group()
