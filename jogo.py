@@ -14,7 +14,7 @@ def carrega_assets():
         'ponto': pygame.image.load(IMG_DIR / 'ponto_com_caminho.png').convert_alpha(),
         'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
-        'fim': pygame.image.load(IMG_DIR / 'espinhos.png').convert_alpha(),
+        'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
         'inicio': pygame.image.load(IMG_DIR / 'tomb_of_foxy_inicio.png').convert_alpha(),
         'espinho': pygame.image.load(IMG_DIR / 'espinhos.PNG').convert_alpha(),
     }
