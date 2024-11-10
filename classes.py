@@ -14,11 +14,11 @@ class Tile(pygame.sprite.Sprite):
     def __init__(self, tile_type, row, column):
         # Inicializa a classe base Sprite
         super().__init__()
-        self.tile_type = tile_type  # Define o tipo de tile: "wall" (parede) ou "path" (caminho)
+        self.tile_type = tile_type  # Define o tipo de tile: "wall" ou "path"
 
         # Cria uma superfície para o tile e define a cor
         self.image = pygame.Surface((constantes.TAMANHO_QUADRADO, constantes.TAMANHO_QUADRADO))
-        self.image.fill(constantes.PRETO if tile_type == "wall" else constantes.PRETO)  # Preto para parede,preto para caminho
+        self.image.fill(constantes.PRETO if tile_type == "wall" else constantes.BRANCO)  # Preto para parede,branco para caminho
 
         # Obtém o retângulo de posição do tile e define sua posição na grade
         self.rect = self.image.get_rect()
@@ -35,14 +35,18 @@ class Obstaculo(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    def morrer(self):
-        self.kill()  # Remove o obstáculo do grupo de sprites
+    # def morrer(self):
+    #     self.kill()  # Remove o obstáculo do grupo de sprites
         
 class Jogador:
     def __init__(self, x, y, velocidade):
         self.posicao = pygame.Vector2(x, y)
         self.velocidade = velocidade
         self.direcao = None
+        
+         #retângulo  para o jogador
+        self.rect = pygame.Rect(self.posicao.x, self.posicao.y, 40, 40)  # Rect baseado na posição e no tamanho
+
 
     def movimentar(self):
         # Movimenta o jogador com base na direção atual
@@ -54,10 +58,22 @@ class Jogador:
             self.posicao.x -= self.velocidade
         elif self.direcao == "direita":
             self.posicao.x += self.velocidade
+            
+            # Atualizando o rect com a nova posição
+        self.rect.topleft = (self.posicao.x, self.posicao.y)
 
     def desenhar(self, screen):
         # Desenha o jogador como um quadrado azul
         pygame.draw.rect(screen, constantes.AZUL, (self.posicao.x, self.posicao.y, 40, 40))
+        
+        
+        
+    def verificar_colisao(self, obstaculos):
+        # Verifica colisão com os obstáculos
+        for obstaculo in obstaculos:
+            if self.rect.colliderect(obstaculo.rect):
+                return True  # Retorna verdadeiro se houver colisão
+        return False    
 
         # def novo_jogo(self):
         #     self.all.sprites = pygame.sprite.Group()

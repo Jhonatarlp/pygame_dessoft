@@ -9,6 +9,16 @@ LARGURA = 1000 # Largura da tela
 ALTURA = 800 # Altura da tela
 TAMANHO_QUADRADO = 40 # Tamanho de cada quadrado (tile)
 #varoiavel para ajuste de velocidade
+
+#tela de morte
+WIDTH, HEIGHT = 800, 600
+#font = pygame.font.Font(None, 74)
+#font_small = pygame.font.Font(None, 36)  
+
+
+
+
+
 clock = pygame.time.Clock()
 FPS = 30 
 # Define algumas variáveis com as cores básicas

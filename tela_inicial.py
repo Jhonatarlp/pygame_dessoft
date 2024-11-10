@@ -11,6 +11,8 @@ pygame.init()
 screen = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
 pygame.display.set_caption(constantes.TITULO)
 clock = pygame.time.Clock()  # Controle de FPS 
+# screen = pygame.display.set_mode((constantes.WIDTH, constantes.HEIGHT))
+# pygame.display.set_caption("Game Over")
       
 # Música de fundo
 musica_de_fundo = pygame.mixer.music.load('assets/fundo.mp3')
@@ -30,6 +32,11 @@ image = pygame.image.load('assets/tomb_of_foxy_inicio.png').convert()
 image = pygame.transform.scale(image, (constantes.LARGURA, constantes.ALTURA)) 
 # Inicializar o jogador
 jogador_o = Jogador(100, 100, 5)  # Posição inicial e velocidade do jogador   
+
+# Criar obstáculos e adicionar ao grupo de sprites
+obstaculos = pygame.sprite.Group()
+obstaculo = Obstaculo(200, 200)  # Posição do obstáculo (MUDAR)
+obstaculos.add(obstaculo)
                                                            
 # Variável de controle do jogo
 game = True
@@ -68,7 +75,14 @@ while game:
         # Atualizar a movimentação e desenhar o jogador
         jogador_o.movimentar()
         jogador_o.desenhar(screen)  # Desenha o jogador na tela
-    
+        
+     # Desenhar os obstáculos
+        obstaculos.draw(screen)
+        
+    # Verificar colisão entre jogador e obstáculos
+        if jogador_o.verificar_colisao(obstaculos):
+            print("Game Over")  # Mensagem de game over (mudar isso e colocar uma imagem de game over )
+            game = False  # Termina o loop para encerrar o jogo    
     # Atualizar a tela
     pygame.display.flip()
     clock.tick(constantes.FPS)  # Controle de FPS
