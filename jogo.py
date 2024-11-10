@@ -1,68 +1,79 @@
+# -*- coding: utf-8 -*-
+
 # Importando as bibliotecas necessárias.
 import pygame
-from pygame.locals import QUIT, KEYDOWN  # Certifique-se de importar QUIT
 from constantes import *
-import tela_inicial
-from mapa1 import MAPA1
-from mapa2 import MAPA2
-from classes import Tile, Jogador, Obstaculo  
+from tela_inicial import *
 
-# Função para inicializar os assets do jogo
-def carrega_assets():
-    assets = {
-        'muro': pygame.image.load(IMG_DIR / 'muro.png').convert_alpha(),
-        'ponto': pygame.image.load(IMG_DIR / 'ponto_com_caminho.png').convert_alpha(),
-        'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
-        'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
-        'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
-        'inicio': pygame.image.load(IMG_DIR / 'tomb_of_foxy_inicio.png').convert_alpha(),
-        'espinho': pygame.image.load(IMG_DIR / 'espinhos.PNG').convert_alpha(),
-    }
-    # Redimensiona as imagens para o tamanho do tile
-    for key in assets:
-        assets[key] = pygame.transform.scale(assets[key], (TAMANHO_QUADRADO, TAMANHO_QUADRADO))
-    return assets
+# Classe Tile que representa um quadrado do mapa
+class Tile(pygame.sprite.Sprite):
 
-# Loop principal do jogo
-def game_loop(janela, assets):
-    mapa_tiles = pygame.sprite.Group()
-    for linha in range(len(MAPA1)):
-        for coluna in range(len(MAPA1[linha])):
-            tipo_quadrado = MAPA1[linha][coluna]
-            if tipo_quadrado in assets:
-                quadrado = Tile(assets[tipo_quadrado], linha, coluna)
-                mapa_tiles.add(quadrado)
+    # Construtor da classe.
+    def __init__(self, tile_img, row, column):
+        # Construtor da classe pai (Sprite).
+        pygame.sprite.Sprite.__init__(self)
 
-    jogador = Jogador(100, 100, 5)  # Posição inicial e velocidade
-    game_started = False
-    running = True
+        # Define a imagem do tile.
+        self.image = tile_img
+        # Detalhes sobre o posicionamento.
+        self.rect = self.image.get_rect()
 
-    while running:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
-            if event.type == KEYDOWN:
-                game_started = True
+        # Posiciona o tile
+        self.rect.x = TAMANHO_QUADRADO * column
+        self.rect.y = TAMANHO_QUADRADO * row
 
-        # Desenha a tela de início ou o jogo
-        if not game_started:
-            tela_inicial.tela_inicial(janela)
-        else:
-            janela.fill(PRETO)
-            jogador.desenhar(janela)  # Desenha o jogador
-            mapa_tiles.draw(janela)  # Desenha o mapa
 
-        # Atualiza a tela e controla o FPS
-        pygame.display.flip()
-        clock.tick(FPS)
-
-# Executa o jogo
-if __name__ == '__main__':
+def inicializa():
     pygame.init()
+
     janela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption(TITULO)
-    
-    assets = carrega_assets()
-    
+
+    # Cada tile é uma imagem quadrada de TILE_SIZE x TILE_SIZE pixels.
+    assets = {
+        MCBD: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima_baixo_e_direita.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MCBE: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima_baixo_e_esquerda.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MCB: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima_e_baixo.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MC: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/cima.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MB: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/baixo.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        E: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/espinhos.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        MTL: pygame.transform.scale(pygame.image.load(IMG_DIR / 'tile-sand6.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+        V: pygame.transform.scale(pygame.image.load(IMG_DIR / 'assets/vazio.png'), (TAMANHO_QUADRADO, TAMANHO_QUADRADO)),
+
+    }
+    # Cria um grupo de tiles.
+    mapa_tiles = pygame.sprite.Group()
+    # Cria tiles de acordo com o mapa
+    for linha in range(len(MAPA)):
+        for coluna in range(len(MAPA[linha])):
+            tipo_quadrado = MAPA[linha][coluna]
+            quadrado = Tile(assets[tipo_quadrado], linha, coluna)
+            mapa_tiles.add(quadrado)
+    assets['mapa_tiles'] = mapa_tiles
+
+    return janela, assets
+
+
+def atualiza_estado():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return False
+    return True
+
+
+def game_loop(janela, assets):
+    while atualiza_estado():
+        desenha(janela, assets)
+
+
+def desenha(janela, assets):
+    # A cada frame, redesenha o fundo e os sprites
+    janela.fill(PRETO)
+    assets['mapa_tiles'].draw(janela)
+
+    pygame.display.update()
+
+
+if __name__ == '__main__':
+    janela, assets = inicializa()
     game_loop(janela, assets)
