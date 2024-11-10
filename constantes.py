@@ -8,7 +8,7 @@ IMG_DIR = Path(__file__).parent / 'assets'
 TITULO = 'Tomb of Foxy'
 LARGURA = 1000  # Largura da tela
 ALTURA = 700  # Altura da tela
-TAMANHO_QUADRADO = 40  # Tamanho de cada quadrado (tile)
+TAMANHO_QUADRADO = 20  # Tamanho de cada quadrado (tile)
 
 # Variável para ajuste de velocidade
 clock = pygame.time.Clock()
