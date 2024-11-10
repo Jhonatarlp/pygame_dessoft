@@ -16,6 +16,7 @@ def carrega_assets():
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
         'fim': pygame.image.load(IMG_DIR / 'espinhos.png').convert_alpha(),
         'inicio': pygame.image.load(IMG_DIR / 'tomb_of_foxy_inicio.png').convert_alpha(),
+        'espinho': pygame.image.load(IMG_DIR / 'espinhos.PNG').convert_alpha(),
     }
     # Redimensiona as imagens para o tamanho do tile
     for key in assets:
