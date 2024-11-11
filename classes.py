@@ -1,4 +1,3 @@
-
 import constantes 
 import pygame
 from mapa1 import MAPA1
@@ -110,8 +109,7 @@ class Jogador:
         #         self.refresh_sprites()
         #         self.desenhar_sprites()
             
-    
-    
+
 
 
 

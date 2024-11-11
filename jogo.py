@@ -99,3 +99,4 @@ if __name__ == '__main__':
     assets = carrega_assets()
     
     game_loop(janela, assets)
+
