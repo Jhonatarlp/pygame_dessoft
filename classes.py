@@ -4,7 +4,7 @@ import pygame
 from mapa1 import MAPA1
 from mapa2 import MAPA2
 from mapa1  import m, p, v, c, f
-    
+from jogo import *    
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
     def __init__(self, image, linha, coluna):
@@ -26,7 +26,16 @@ class Obstaculo(pygame.sprite.Sprite):
 
     # def morrer(self):
     #     self.kill()  # Remove o obstáculo do grupo de sprites
-        
+    
+    
+class Moeda(pygame.sprite.Sprite):
+    def __init__(self, x, y, imagem_moeda):
+        super().__init__()
+        self.image = pygame.image.load(constantes.IMG_DIR / 'ponto_com_caminho.png').convert_alpha()
+        self.rect = self.image.get_rect()  # Cria o retângulo para a moeda
+        self.rect.x = x
+        self.rect.y = y
+                
 class Jogador:
     def __init__(self, x, y, velocidade,imagem):
         self.posicao = pygame.Vector2(x, y)
@@ -39,7 +48,7 @@ class Jogador:
 
         # Define o rect com base na posição do jogador e na imagem
         self.rect = self.image.get_rect()
-        self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no jogo
+        self.rect.topleft = (self.posicao.x, self.posicao.y)  # atualiza jogador
 
 
     def movimentar(self,mapa):
@@ -57,8 +66,8 @@ class Jogador:
         # Converte a nova posição para coordenadas da matriz
         linha = int(nova_posicao.y // constantes.TAMANHO_QUADRADO)
         coluna = int(nova_posicao.x // constantes.TAMANHO_QUADRADO) 
-        print(f"Verificando posição: ({linha}, {coluna})")
-        print(f"Valor no mapa: {mapa[linha][coluna]}, p: {p}, c: {c}")
+        #print(f"Verificando posição: ({linha}, {coluna})")
+        #print(f"Valor no mapa: {mapa[linha][coluna]}, p: {p}, c: {c}")
 
         
         #PRECISA TER ALGO QUE VÊ SE TA DENTRO DOS LIMITES DO MAPA
@@ -73,12 +82,20 @@ class Jogador:
         screen.blit(self.image, self.rect)
         
         
-    def verificar_colisao(self, obstaculos):
+    def verificar_colisao(self, obstaculos): 
+         
         # Verifica colisão com os obstáculos
         for obstaculo in obstaculos:
             if self.rect.colliderect(obstaculo.rect):
                 return True  # Retorna verdadeiro se houver colisão
         return False    
+    
+    def verificar_colisao_moeda(self,moedas): 
+        for moeda in moedas:
+            if self.rect.colliderect(moeda.rect):
+                moeda.kill()
+                return True  # Retorna verdadeiro se a moeda foi coletada
+        return False
 
         # def novo_jogo(self):
         #     self.all.sprites = pygame.sprite.Group()
