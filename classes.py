@@ -29,14 +29,16 @@ class Obstaculo(pygame.sprite.Sprite):
     #     self.kill()  # Remove o obstáculo do grupo de sprites
         
 class Jogador:
-    def __init__(self, x, y, velocidade,imagem):
+    def __init__(self, x, y, velocidade,imagens):
         self.posicao = pygame.Vector2(x, y)
         self.velocidade = velocidade
         self.direcao = 'parado'
+        self.tempo = 0
+        self.imagem_atual = 0
+        self.imagens = imagens
         
         # Carrega a imagem do jogador
-        self.image = pygame.image.load(constantes.IMG_DIR / 'foxy1.png').convert_alpha()
-        self.image = pygame.transform.scale(self.image, (20, 20))  # Redimensiona 
+        self.image = imagens[self.imagem_atual]  # Redimensiona 
 
         # Define o rect com base na posição do jogador e na imagem
         self.rect = self.image.get_rect()
@@ -44,7 +46,13 @@ class Jogador:
 
 
     def movimentar(self,mapa):
-        print(self.direcao)
+        self.tempo+=1
+        if self.direcao == 'parado':
+            if self.tempo >= 5:
+                self.tempo = 0
+                self.imagem_atual = (self.imagem_atual + 1) % 4
+                self.image = self.imagens[self.imagem_atual]
+
         # Calcula a nova posição com base na direção
         nova_posicao = pygame.Vector2(self.posicao)
         # Movimenta o jogador com base na direção atual
