@@ -1,6 +1,9 @@
 
 import constantes 
 import pygame
+from mapa1 import MAPA1
+from mapa2 import MAPA2
+from mapa1  import m, p, v, c, f
     
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
@@ -39,20 +42,32 @@ class Jogador:
         self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no jogo
 
 
-    def movimentar(self):
+    def movimentar(self,mapa):
+        # Calcula a nova posição com base na direção
+        nova_posicao = pygame.Vector2(self.posicao)
         # Movimenta o jogador com base na direção atual
         if self.direcao == "cima":
-            self.posicao.y -= self.velocidade
+            nova_posicao.y -= self.velocidade
         elif self.direcao == "baixo":
-            self.posicao.y += self.velocidade
+            nova_posicao.y += self.velocidade
         elif self.direcao == "esquerda":
-            self.posicao.x -= self.velocidade
+            nova_posicao.x-= self.velocidade
         elif self.direcao == "direita":
-            self.posicao.x += self.velocidade
-            
-            # Atualizando o rect com a nova posição
-        self.rect.topleft = (self.posicao.x, self.posicao.y)
+            nova_posicao.x += self.velocidade
+        # Converte a nova posição para coordenadas da matriz
+        linha = int(nova_posicao.y // constantes.TAMANHO_QUADRADO)
+        coluna = int(nova_posicao.x // constantes.TAMANHO_QUADRADO) 
+        print(f"Verificando posição: ({linha}, {coluna})")
+        print(f"Valor no mapa: {mapa[linha][coluna]}, p: {p}, c: {c}")
 
+        
+        #PRECISA TER ALGO QUE VÊ SE TA DENTRO DOS LIMITES DO MAPA
+        if 0 <= linha < len(mapa) and 0 <= coluna < len(mapa[0]):
+            if mapa[linha][coluna] == p  or  mapa[linha][coluna] == c :
+            # Atualiza a posição do jogador se o próximo quadrado for "c"
+                self.posicao = nova_posicao
+                self.rect.topleft = (self.posicao.x, self.posicao.y)
+                
     def desenhar(self, screen):
         # 'Desenha' o jogador 
         screen.blit(self.image, self.rect)

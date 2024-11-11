@@ -4,6 +4,7 @@ from pygame.locals import QUIT, KEYDOWN
 from constantes import *
 import tela_inicial
 from mapa1 import MAPA1
+from mapa1  import m, p, v, c, f
 from mapa2 import MAPA2
 from classes import Tile, Jogador, Obstaculo  
 
@@ -36,8 +37,8 @@ def game_loop(janela, assets):
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
 
-    jogador = Jogador(100, 100, 5, assets['jogador'])
-    game_started = True 
+    jogador = Jogador(x_inicial, y_inicial, 5, assets['jogador'])
+    #game_started = True 
     running = True
 
     while running:
@@ -46,6 +47,7 @@ def game_loop(janela, assets):
                 pygame.quit()
                 exit()
             if event.type == KEYDOWN:
+                print(f"Tecla pressionada: {event.key}")  # Adicione esta linha para verificar o teclado
                 if event.key == pygame.K_UP:
                     jogador.direcao = "cima"
                 elif event.key == pygame.K_DOWN:
@@ -56,47 +58,16 @@ def game_loop(janela, assets):
                     jogador.direcao = "direita"
             if event.type == pygame.KEYUP:
                 jogador.direcao = None
-
-        if game_started:
-            jogador.movimentar()
-            janela.fill(PRETO)
-            mapa_tiles.draw(janela) 
-            jogador.desenhar(janela)  
-
-        pygame.display.flip()
-        clock.tick(FPS)
-
-    jogador = Jogador(100, 100, 5, assets['jogador'])  # Posição inicial, velocidade e sprite do jogador
-    game_started = False
-    running = True
-
-    while running:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
-            if event.type == KEYDOWN:
-                game_started = True
-                if event.key == pygame.K_UP:
-                    jogador.direcao = "cima"
-                elif event.key == pygame.K_DOWN:
-                    jogador.direcao = "baixo"
-                elif event.key == pygame.K_LEFT:
-                    jogador.direcao = "esquerda"
-                elif event.key == pygame.K_RIGHT:
-                    jogador.direcao = "direita"
-
-            if event.type == pygame.KEYUP:
-                jogador.direcao = None  
-
-        if game_started:
-            jogador.movimentar(grupo_obstaculos)  
-            janela.fill(PRETO)
-            jogador.desenhar(janela)
-            mapa_tiles.draw(janela)
+        #desenha mapa e jogador
+        #if game_started:
+        jogador.movimentar(MAPA1)  ####obs###
+        janela.fill(PRETO)
+        mapa_tiles.draw(janela) 
+        jogador.desenhar(janela)  
 
         pygame.display.flip()
         clock.tick(FPS)
+
 
 # Executa o jogo
 if __name__ == '__main__':
