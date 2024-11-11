@@ -1,6 +1,9 @@
 
 import constantes 
 import pygame
+from mapa1 import MAPA1
+from mapa2 import MAPA2
+from mapa1  import m, p, v, c, f
     
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
@@ -48,7 +51,9 @@ class Jogador(pygame.sprite.Sprite):
         self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no jogo
 
 
-    def movimentar(self):
+    def movimentar(self,mapa):
+        # Calcula a nova posição com base na direção
+        nova_posicao = pygame.Vector2(self.posicao)
         # Movimenta o jogador com base na direção atual
         if self.direcao == "cima":
             self.rect.y -= self.velocidade
