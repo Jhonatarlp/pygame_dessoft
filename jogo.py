@@ -41,8 +41,10 @@ def game_loop(janela, assets):
     jogador = Jogador(100, 100, 5, assets['jogador'])
     game_started = True 
     running = True
-
+    time = 0
     while running:
+        time += loop_time
+        print(time)
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()

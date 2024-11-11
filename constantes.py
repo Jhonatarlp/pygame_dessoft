@@ -21,6 +21,7 @@ WIDTH, HEIGHT = 800, 600
 
 clock = pygame.time.Clock()
 FPS = 30 
+loop_time = 1/FPS
 # Define algumas variáveis com as cores básicas
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
