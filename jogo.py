@@ -33,7 +33,7 @@ def game_loop(janela, assets):
         for coluna in range(len(MAPA1[linha])):
             tipo_quadrado = MAPA1[linha][coluna]
             if tipo_quadrado in assets:
-                quadrado = Tile(assets[tipo_quadrado], linha, coluna)
+                quadrado = Tile(assets[tipo_quadrado], linha, coluna, tipo_quadrado)
                 mapa_tiles.add(quadrado)
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
@@ -41,9 +41,9 @@ def game_loop(janela, assets):
                     moeda = Moeda(coluna *TAMANHO_QUADRADO, linha *TAMANHO_QUADRADO, assets['ponto'])
                     grupo_moedas.add(moeda)
     
-    jogador = Jogador(x_inicial, y_inicial, 5, assets['jogador'])
-    
     moedas_coletadas = 0
+
+    jogador = Jogador(x_inicial, y_inicial, 10, assets['jogador'])
     #game_started = True 
     running = True
     
@@ -55,16 +55,16 @@ def game_loop(janela, assets):
                 exit()
             if event.type == KEYDOWN:
                 print(f"Tecla pressionada: {event.key}")  # Adicione esta linha para verificar o teclado
-                if event.key == pygame.K_UP:
-                    jogador.direcao = "cima"
-                elif event.key == pygame.K_DOWN:
-                    jogador.direcao = "baixo"
-                elif event.key == pygame.K_LEFT:
-                    jogador.direcao = "esquerda"
-                elif event.key == pygame.K_RIGHT:
-                    jogador.direcao = "direita"
-            if event.type == pygame.KEYUP:
-                jogador.direcao = None
+                if jogador.direcao == 'parado':
+                    if event.key == pygame.K_UP:
+                        jogador.direcao = "cima"
+                    elif event.key == pygame.K_DOWN:
+                        jogador.direcao = "baixo"
+                    elif event.key == pygame.K_LEFT:
+                        jogador.direcao = "esquerda"
+                    elif event.key == pygame.K_RIGHT:
+                        jogador.direcao = "direita"
+
         #desenha mapa e jogador
         
         #if game_started:
@@ -78,6 +78,7 @@ def game_loop(janela, assets):
        # print(moedas_coletadas)        
             
 
+        jogador.movimentar(grupo_obstaculos)  ####obs###
         janela.fill(PRETO)
         mapa_tiles.draw(janela) 
         jogador.desenhar(janela)  
