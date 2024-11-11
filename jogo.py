@@ -29,6 +29,12 @@ def carrega_assets():
         img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
         foxy_anim.append(img)
     assets['anim foxy'] = foxy_anim
+
+    bolinha = 'bolinha.PNG'
+    img =  pygame.image.load(IMG_DIR / bolinha).convert_alpha()
+    img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
+    assets['bolinha'] = img
+
     return assets
 
 # Loop principal do jogo
@@ -45,7 +51,7 @@ def game_loop(janela, assets):
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
 
-    jogador = Jogador(x_inicial, y_inicial, 10, assets['anim foxy'])
+    jogador = Jogador(x_inicial, y_inicial, 10, assets)
     #game_started = True 
     running = True
 
