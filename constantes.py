@@ -2,7 +2,7 @@ from pathlib import Path
 import pygame
 
 # Estabelece a pasta que contem as figuras e sons.
-IMG_DIR = Path(__file__).parent.parent / 'img'
+IMG_DIR = Path(__file__).parent.parent / 'assets'
 # Dados gerais do jogo.
 TITULO = 'Tomb of Foxy'
 LARGURA = 1000 # Largura da tela
@@ -14,9 +14,6 @@ TAMANHO_QUADRADO = 40 # Tamanho de cada quadrado (tile)
 WIDTH, HEIGHT = 800, 600
 #font = pygame.font.Font(None, 74)
 #font_small = pygame.font.Font(None, 36)  
-
-
-
 
 
 clock = pygame.time.Clock()
