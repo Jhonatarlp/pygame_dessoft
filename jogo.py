@@ -1,6 +1,6 @@
 # Importando as bibliotecas necessárias.
 import pygame
-from pygame.locals import QUIT, KEYDOWN  # Certifique-se de importar QUIT
+from pygame.locals import QUIT, KEYDOWN  
 from constantes import *
 import tela_inicial
 from mapa1 import MAPA1
@@ -11,14 +11,13 @@ from classes import Tile, Jogador, Obstaculo
 def carrega_assets():
     assets = {
         'muro': pygame.image.load(IMG_DIR / 'muro.png').convert_alpha(),
-        'ponto': pygame.image.load(IMG_DIR / 'ponto_com_caminho.png').convert_alpha(),
-        'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
-        'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
-        'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
-        'inicio': pygame.image.load(IMG_DIR / 'tomb_of_foxy_inicio.png').convert_alpha(),
-        'espinho': pygame.image.load(IMG_DIR / 'espinhos.PNG').convert_alpha(),
+        'ponto': pygame.image.load(IMG_DIR / 'vazio.png').convert_alpha(),
+        'vacuo': pygame.image.load(IMG_DIR / 'vazio.png').convert_alpha(),
+        'caminho': pygame.image.load(IMG_DIR / 'espinhos.png').convert_alpha(),
+        'fim': pygame.image.load(IMG_DIR / 'fim.png').convert_alpha(),
+        'jogador': pygame.image.load(IMG_DIR / 'jogador.png').convert_alpha(),  
     }
-    # Redimensiona as imagens para o tamanho do tile
+    # Redimensiona as imagens para o tamanho do tile, se necessário
     for key in assets:
         assets[key] = pygame.transform.scale(assets[key], (TAMANHO_QUADRADO, TAMANHO_QUADRADO))
     return assets
@@ -26,14 +25,19 @@ def carrega_assets():
 # Loop principal do jogo
 def game_loop(janela, assets):
     mapa_tiles = pygame.sprite.Group()
+    grupo_obstaculos = pygame.sprite.Group()  
+
     for linha in range(len(MAPA1)):
         for coluna in range(len(MAPA1[linha])):
             tipo_quadrado = MAPA1[linha][coluna]
             if tipo_quadrado in assets:
                 quadrado = Tile(assets[tipo_quadrado], linha, coluna)
                 mapa_tiles.add(quadrado)
+                # Adiciona ao grupo de obstáculos os muros
+                if tipo_quadrado == 'muro':
+                    grupo_obstaculos.add(quadrado)
 
-    jogador = Jogador(100, 100, 5)  # Posição inicial e velocidade
+    jogador = Jogador(100, 100, 5, assets['jogador'])  # Posição inicial, velocidade e sprite do jogador
     game_started = False
     running = True
 
@@ -44,16 +48,24 @@ def game_loop(janela, assets):
                 exit()
             if event.type == KEYDOWN:
                 game_started = True
+                if event.key == pygame.K_UP:
+                    jogador.direcao = "cima"
+                elif event.key == pygame.K_DOWN:
+                    jogador.direcao = "baixo"
+                elif event.key == pygame.K_LEFT:
+                    jogador.direcao = "esquerda"
+                elif event.key == pygame.K_RIGHT:
+                    jogador.direcao = "direita"
 
-        # Desenha a tela de início ou o jogo
-        if not game_started:
-            tela_inicial.tela_inicial(janela)
-        else:
+            if event.type == pygame.KEYUP:
+                jogador.direcao = None  
+
+        if game_started:
+            jogador.movimentar(grupo_obstaculos)  
             janela.fill(PRETO)
-            jogador.desenhar(janela)  # Desenha o jogador
-            mapa_tiles.draw(janela)  # Desenha o mapa
+            jogador.desenhar(janela)
+            mapa_tiles.draw(janela)
 
-        # Atualiza a tela e controla o FPS
         pygame.display.flip()
         clock.tick(FPS)
 

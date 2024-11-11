@@ -3,7 +3,6 @@ p = 'ponto'
 v = 'vacuo'
 c = 'caminho'
 f = 'fim'
-i = 'inicio'
 MAPA1 = [
    
     [v, v, v, v, v, v, v, v, v, m, m, m, v, v, v, v, v],
@@ -36,6 +35,6 @@ MAPA1 = [
     [m, p, c, c, p, m, v, v, v, m, m, m, m, c, c, p, m],
     [m, p, p, p, p, m, v, v, v, m, c, c, c, c, c, p, m],
     [m, m, m, m, m, m, v, v, v, m, c, c, c, c, c, p, m],
-    [v, v, v, v, v, v, v, v, v, m, c, c, c, c, c, i, m],
+    [v, v, v, v, v, v, v, v, v, m, c, c, c, c, c, p, m],
     [v, v, v, v, v, v, v, v, v, m, m, m, m, m, m, m, m],
 ]
