@@ -3,17 +3,23 @@ import pygame
 
 # Estabelece a pasta que contem as figuras e sons.
 IMG_DIR = Path(__file__).parent / 'assets'
-
 # Dados gerais do jogo.
 TITULO = 'Tomb of Foxy'
-LARGURA = 1000  # Largura da tela
-ALTURA = 700  # Altura da tela
-TAMANHO_QUADRADO = 40  # Tamanho de cada quadrado (tile)
+LARGURA = 1000 # Largura da tela
+ALTURA = 800 # Altura da tela
+TAMANHO_QUADRADO = 20 # Tamanho de cada quadrado (tile)
+#varoiavel para ajuste de velocidade
 
-# Variável para ajuste de velocidade
+
+linha_inicial, coluna_inicial = 30, 15  # Posição inicial em um tile `p`
+x_inicial = coluna_inicial *TAMANHO_QUADRADO
+y_inicial = linha_inicial *TAMANHO_QUADRADO 
+
+#tela de morte
+WIDTH, HEIGHT = 800, 600
+
 clock = pygame.time.Clock()
-FPS = 30
-
+FPS = 30 
 # Define algumas variáveis com as cores básicas
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
@@ -23,6 +29,7 @@ AZUL = (0, 0, 255)
 AMARELO = (255, 255, 0)
 
 # Define os tipos de tiles
+# Os underscores no final são apenas para manter todas as variáveis com o mesmo tamanho.
 MCBD = 0
 MCBE = 1
 MCB = 2
