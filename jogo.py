@@ -16,11 +16,19 @@ def carrega_assets():
         'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
         'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
-        'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
+        # 'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
     }
     # Redimensiona as imagens para o tamanho do tile
     for key in assets:
         assets[key] = pygame.transform.scale(assets[key], (TAMANHO_QUADRADO, TAMANHO_QUADRADO))
+
+    foxy_anim = []
+    for i in range(1,5):
+        filename = f'foxy{i}.png'
+        img =  pygame.image.load(IMG_DIR / filename).convert_alpha()
+        img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
+        foxy_anim.append(img)
+    assets['anim foxy'] = foxy_anim
     return assets
 
 # Loop principal do jogo
@@ -43,7 +51,7 @@ def game_loop(janela, assets):
     
     moedas_coletadas = 0
 
-    jogador = Jogador(x_inicial, y_inicial, 10, assets['jogador'])
+    jogador = Jogador(x_inicial, y_inicial, 10, assets['anim foxy'])
     #game_started = True 
     running = True
     
