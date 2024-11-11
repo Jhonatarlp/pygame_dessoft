@@ -7,7 +7,7 @@ janela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption(TITULO)
 
 # Carregar e redimensionar a imagem de fundo
-imagem_fundo = pygame.image.load(IMG_DIR / 'tomb_of_foxy_inicio.png').convert()
+imagem_fundo = pygame.image.load(IMG_DIR/'tomb_of_foxy_inicio.png').convert()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (LARGURA, ALTURA))
 
 # Texto de start

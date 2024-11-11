@@ -2,7 +2,7 @@ from pathlib import Path
 import pygame
 
 # Estabelece a pasta que contem as figuras e sons.
-IMG_DIR = Path(__file__).parent.parent / 'assets'
+IMG_DIR = Path(__file__).parent / 'assets'
 # Dados gerais do jogo.
 TITULO = 'Tomb of Foxy'
 LARGURA = 1000 # Largura da tela

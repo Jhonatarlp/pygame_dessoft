@@ -7,6 +7,7 @@ from mapa1 import MAPA1
 from mapa2 import MAPA2
 from classes import Tile, Jogador, Obstaculo  
 
+
 # Função para inicializar os assets do jogo
 def carrega_assets():
     assets = {
@@ -14,8 +15,8 @@ def carrega_assets():
         'ponto': pygame.image.load(IMG_DIR / 'vazio.png').convert_alpha(),
         'vacuo': pygame.image.load(IMG_DIR / 'vazio.png').convert_alpha(),
         'caminho': pygame.image.load(IMG_DIR / 'espinhos.png').convert_alpha(),
-        'fim': pygame.image.load(IMG_DIR / 'fim.png').convert_alpha(),
-        'jogador': pygame.image.load(IMG_DIR / 'jogador.png').convert_alpha(),  
+        'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
+        'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
     }
     # Redimensiona as imagens para o tamanho do tile, se necessário
     for key in assets:

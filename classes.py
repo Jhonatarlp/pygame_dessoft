@@ -39,13 +39,18 @@ class Obstaculo(pygame.sprite.Sprite):
     #     self.kill()  # Remove o obstáculo do grupo de sprites
         
 class Jogador:
-    def __init__(self, x, y, velocidade):
+    def __init__(self, x, y, velocidade,imagem):
         self.posicao = pygame.Vector2(x, y)
         self.velocidade = velocidade
         self.direcao = None
         
-         #retângulo  para o jogador
-        self.rect = pygame.Rect(self.posicao.x, self.posicao.y, 40, 40)  # Rect baseado na posição e no tamanho
+        # Carrega a imagem do jogador
+        self.image = pygame.image.load(constantes.IMG_DIR / 'foxy1.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image, (40, 40))  # Redimensiona 
+
+        # Define o rect com base na posição do jogador e na imagem
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no jogo
 
 
     def movimentar(self):
@@ -63,8 +68,8 @@ class Jogador:
         self.rect.topleft = (self.posicao.x, self.posicao.y)
 
     def desenhar(self, screen):
-        # Desenha o jogador como um quadrado azul
-        pygame.draw.rect(screen, constantes.AZUL, (self.posicao.x, self.posicao.y, 40, 40))
+        # 'Desenha' o jogador 
+        screen.blit(self.image, self.rect)
         
         
         
