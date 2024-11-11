@@ -10,6 +10,11 @@ ALTURA = 800 # Altura da tela
 TAMANHO_QUADRADO = 20 # Tamanho de cada quadrado (tile)
 #varoiavel para ajuste de velocidade
 
+
+linha_inicial, coluna_inicial = 30, 15  # Posição inicial em um tile `p`
+x_inicial = coluna_inicial *TAMANHO_QUADRADO
+y_inicial = linha_inicial *TAMANHO_QUADRADO 
+
 #tela de morte
 WIDTH, HEIGHT = 800, 600
 
