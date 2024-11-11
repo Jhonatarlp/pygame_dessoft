@@ -33,7 +33,10 @@ def game_loop(janela, assets):
         for coluna in range(len(MAPA1[linha])):
             tipo_quadrado = MAPA1[linha][coluna]
             if tipo_quadrado in assets:
-                quadrado = Tile(assets[tipo_quadrado], linha, coluna)
+                if tipo_quadrado == p:
+                    quadrado = Tile(assets[c], linha, coluna)
+                else:
+                    quadrado = Tile(assets[tipo_quadrado], linha, coluna)
                 mapa_tiles.add(quadrado)
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
@@ -70,7 +73,7 @@ def game_loop(janela, assets):
         
         jogador.movimentar(MAPA1)  ####obs###
         # Dentro do loop do jogo, logo após movimentar o jogador
-        if jogador.verificar_colisao_moeda(grupo_moedas.sprites()):  # Passa os grupos
+        if jogador.verificar_colisao_moeda(grupo_moedas):  # Passa os grupos
             moedas_coletadas += 1  # Incrementa o contador de moedas coletadas
             # for moeda in grupo_moedas:
             #     moeda.kill()  # Remove TODAS

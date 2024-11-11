@@ -31,6 +31,7 @@ class Moeda(pygame.sprite.Sprite):
     def __init__(self, x, y, imagem_moeda):
         super().__init__()
         self.image = pygame.image.load(constantes.IMG_DIR / 'ponto_com_caminho.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image, (20, 20))
         self.rect = self.image.get_rect()  # Cria o retângulo para a moeda
         self.rect.x = x
         self.rect.y = y
@@ -92,6 +93,7 @@ class Jogador:
     def verificar_colisao_moeda(self,moedas): 
         for moeda in moedas:
             if self.rect.colliderect(moeda.rect):
+                print(moeda.rect)
                 moeda.kill()
                 return True  # Retorna verdadeiro se a moeda foi coletada
         return False
