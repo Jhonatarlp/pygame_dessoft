@@ -26,11 +26,12 @@ pygame.display.flip()
 
 # Aguarda um evento de tecla para continuar
 esperando = True
+
 while esperando:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             esperando = False
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:        
             esperando = False
