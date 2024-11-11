@@ -1,29 +1,15 @@
 
 import constantes 
 import pygame
-#configurações iniciais 
-# pygame.init()
-# pygame.mixer.init()
-# screen = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
-# pygame.display.set_caption(constantes.TITULO)
-# clock = pygame.time.Clock()
-
     
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, tile_type, row, column):
-        # Inicializa a classe base Sprite
+    def __init__(self, image, linha, coluna):
         super().__init__()
-        self.tile_type = tile_type  # Define o tipo de tile: "wall" ou "path"
-
-        # Cria uma superfície para o tile e define a cor
-        self.image = pygame.Surface((constantes.TAMANHO_QUADRADO, constantes.TAMANHO_QUADRADO))
-        self.image.fill(constantes.PRETO if tile_type == "wall" else constantes.BRANCO)  # Preto para parede,branco para caminho
-
-        # Obtém o retângulo de posição do tile e define sua posição na grade
+        self.image = image  
         self.rect = self.image.get_rect()
-        self.rect.x = column * constantes.TAMANHO_QUADRADO  # Posição X com base na coluna e no tamanho do tile
-        self.rect.y = row * constantes.TAMANHO_QUADRADO     # Posição Y com base na linha e no tamanho do tile
+        self.rect.x = coluna * constantes.TAMANHO_QUADRADO
+        self.rect.y = linha * constantes.TAMANHO_QUADRADO    #
         
 # Classe Obstáculo (obstáculo que "morre" ao colidir)
 class Obstaculo(pygame.sprite.Sprite):
@@ -46,7 +32,7 @@ class Jogador:
         
         # Carrega a imagem do jogador
         self.image = pygame.image.load(constantes.IMG_DIR / 'foxy1.png').convert_alpha()
-        self.image = pygame.transform.scale(self.image, (40, 40))  # Redimensiona 
+        self.image = pygame.transform.scale(self.image, (20, 20))  # Redimensiona 
 
         # Define o rect com base na posição do jogador e na imagem
         self.rect = self.image.get_rect()
@@ -70,7 +56,6 @@ class Jogador:
     def desenhar(self, screen):
         # 'Desenha' o jogador 
         screen.blit(self.image, self.rect)
-        
         
         
     def verificar_colisao(self, obstaculos):

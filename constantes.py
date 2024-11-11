@@ -7,14 +7,11 @@ IMG_DIR = Path(__file__).parent / 'assets'
 TITULO = 'Tomb of Foxy'
 LARGURA = 1000 # Largura da tela
 ALTURA = 800 # Altura da tela
-TAMANHO_QUADRADO = 40 # Tamanho de cada quadrado (tile)
+TAMANHO_QUADRADO = 20 # Tamanho de cada quadrado (tile)
 #varoiavel para ajuste de velocidade
 
 #tela de morte
 WIDTH, HEIGHT = 800, 600
-#font = pygame.font.Font(None, 74)
-#font_small = pygame.font.Font(None, 36)  
-
 
 clock = pygame.time.Clock()
 FPS = 30 
@@ -36,7 +33,3 @@ MB = 4
 E = 5
 MTL = 6
 V = 7
-
-# Define o mapa com os tipos de tiles
-
-MAPA = []
