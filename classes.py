@@ -1,10 +1,9 @@
-
 import constantes 
 import pygame
 from mapa1 import MAPA1
 from mapa2 import MAPA2
 from mapa1  import m, p, v, c, f
-    
+from jogo import *    
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
     def __init__(self, image, linha, coluna):
@@ -26,13 +25,19 @@ class Obstaculo(pygame.sprite.Sprite):
 
     # def morrer(self):
     #     self.kill()  # Remove o obstáculo do grupo de sprites
-        
-class Jogador(pygame.sprite.Sprite):
-    def __init__(self, x, y, velocidade, image):
+    
+    
+class Moeda(pygame.sprite.Sprite):
+    def __init__(self, x, y, imagem_moeda):
         super().__init__()
-        self.image = image  
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
+        self.image = pygame.image.load(constantes.IMG_DIR / 'ponto_com_caminho.png').convert_alpha()
+        self.rect = self.image.get_rect()  # Cria o retângulo para a moeda
+        self.rect.x = x
+        self.rect.y = y
+                
+class Jogador:
+    def __init__(self, x, y, velocidade,imagem):
+        self.posicao = pygame.Vector2(x, y)
         self.velocidade = velocidade
         self.direcao = None
         
@@ -42,7 +47,7 @@ class Jogador(pygame.sprite.Sprite):
 
         # Define o rect com base na posição do jogador e na imagem
         self.rect = self.image.get_rect()
-        self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no jogo
+        self.rect.topleft = (self.posicao.x, self.posicao.y)  # atualiza jogador
 
 
     def movimentar(self,mapa):
@@ -50,28 +55,46 @@ class Jogador(pygame.sprite.Sprite):
         nova_posicao = pygame.Vector2(self.posicao)
         # Movimenta o jogador com base na direção atual
         if self.direcao == "cima":
-            self.rect.y -= self.velocidade
+            nova_posicao.y -= self.velocidade
         elif self.direcao == "baixo":
-            self.rect.y += self.velocidade
+            nova_posicao.y += self.velocidade
         elif self.direcao == "esquerda":
-            self.rect.x -= self.velocidade
+            nova_posicao.x-= self.velocidade
         elif self.direcao == "direita":
-            self.posicao.x += self.velocidade
-            
-            # Atualizando o rect com a nova posição
-        self.rect.topleft = (self.posicao.x, self.posicao.y)
+            nova_posicao.x += self.velocidade
+        # Converte a nova posição para coordenadas da matriz
+        linha = int(nova_posicao.y // constantes.TAMANHO_QUADRADO)
+        coluna = int(nova_posicao.x // constantes.TAMANHO_QUADRADO) 
+        #print(f"Verificando posição: ({linha}, {coluna})")
+        #print(f"Valor no mapa: {mapa[linha][coluna]}, p: {p}, c: {c}")
 
+        
+        #PRECISA TER ALGO QUE VÊ SE TA DENTRO DOS LIMITES DO MAPA
+        if 0 <= linha < len(mapa) and 0 <= coluna < len(mapa[0]):
+            if mapa[linha][coluna] == p  or  mapa[linha][coluna] == c :
+            # Atualiza a posição do jogador se o próximo quadrado for "c"
+                self.posicao = nova_posicao
+                self.rect.topleft = (self.posicao.x, self.posicao.y)
+                
     def desenhar(self, screen):
         # 'Desenha' o jogador 
         screen.blit(self.image, self.rect)
         
         
-    def verificar_colisao(self, obstaculos):
+    def verificar_colisao(self, obstaculos): 
+         
         # Verifica colisão com os obstáculos
         for obstaculo in obstaculos:
             if self.rect.colliderect(obstaculo.rect):
                 return True  # Retorna verdadeiro se houver colisão
         return False    
+    
+    def verificar_colisao_moeda(self,moedas): 
+        for moeda in moedas:
+            if self.rect.colliderect(moeda.rect):
+                moeda.kill()
+                return True  # Retorna verdadeiro se a moeda foi coletada
+        return False
 
         # def novo_jogo(self):
         #     self.all.sprites = pygame.sprite.Group()
@@ -86,8 +109,7 @@ class Jogador(pygame.sprite.Sprite):
         #         self.refresh_sprites()
         #         self.desenhar_sprites()
             
-    
-    
+
 
 
 

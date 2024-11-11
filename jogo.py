@@ -6,7 +6,7 @@ import tela_inicial
 from mapa1 import MAPA1
 from mapa1  import m, p, v, c, f
 from mapa2 import MAPA2
-from classes import Tile, Jogador, Obstaculo  
+from classes import *  
 
 # Função para inicializar os assets do jogo
 def carrega_assets():
@@ -18,7 +18,6 @@ def carrega_assets():
         'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
         'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
     }
-    
     # Redimensiona as imagens para o tamanho do tile
     for key in assets:
         assets[key] = pygame.transform.scale(assets[key], (TAMANHO_QUADRADO, TAMANHO_QUADRADO))
@@ -28,7 +27,8 @@ def carrega_assets():
 def game_loop(janela, assets):
     mapa_tiles = pygame.sprite.Group()
     grupo_obstaculos = pygame.sprite.Group()
-
+    grupo_moedas = pygame.sprite.Group()  
+    
     for linha in range(len(MAPA1)):
         for coluna in range(len(MAPA1[linha])):
             tipo_quadrado = MAPA1[linha][coluna]
@@ -37,14 +37,17 @@ def game_loop(janela, assets):
                 mapa_tiles.add(quadrado)
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
-
-    jogador = Jogador(100, 100, 5, assets['jogador'])
-    game_started = True 
+                elif tipo_quadrado == 'ponto':  
+                    moeda = Moeda(coluna *TAMANHO_QUADRADO, linha *TAMANHO_QUADRADO, assets['ponto'])
+                    grupo_moedas.add(moeda)
+    
+    jogador = Jogador(x_inicial, y_inicial, 5, assets['jogador'])
+    
+    moedas_coletadas = 0
+    #game_started = True 
     running = True
-    time = 0
+    
     while running:
-        time += loop_time
-        print(time)
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -62,46 +65,30 @@ def game_loop(janela, assets):
             if event.type == pygame.KEYUP:
                 jogador.direcao = None
         #desenha mapa e jogador
+        
         #if game_started:
+        
         jogador.movimentar(MAPA1)  ####obs###
+        # Dentro do loop do jogo, logo após movimentar o jogador
+        if jogador.verificar_colisao_moeda(grupo_moedas.sprites()):  # Passa os grupos
+            moedas_coletadas += 1  # Incrementa o contador de moedas coletadas
+            # for moeda in grupo_moedas:
+            #     moeda.kill()  # Remove TODAS
+        print(moedas_coletadas)        
+            
+
         janela.fill(PRETO)
         mapa_tiles.draw(janela) 
         jogador.desenhar(janela)  
+        grupo_moedas.draw(janela)  # Desenha as moedas
+        
+        fonte = pygame.font.SysFont(None, 36)
+        texto_moedas = fonte.render(f"Moedas: {moedas_coletadas}", True, (255, 255, 255))
+        janela.blit(texto_moedas, (10, 10))  # Desenha o texto no canto superior esquerdo
 
         pygame.display.flip()
         clock.tick(FPS)
 
-    jogador = Jogador(100, 100, 5, assets['jogador'])  # Posição inicial, velocidade e sprite do jogador
-    game_started = False
-    running = True
-
-    while running:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
-            if event.type == KEYDOWN:
-                game_started = True
-                if event.key == pygame.K_UP:
-                    jogador.direcao = "cima"
-                elif event.key == pygame.K_DOWN:
-                    jogador.direcao = "baixo"
-                elif event.key == pygame.K_LEFT:
-                    jogador.direcao = "esquerda"
-                elif event.key == pygame.K_RIGHT:
-                    jogador.direcao = "direita"
-
-            if event.type == pygame.KEYUP:
-                jogador.direcao = None  
-
-        if game_started:
-            jogador.movimentar(grupo_obstaculos)  
-            janela.fill(PRETO)
-            jogador.desenhar(janela)
-            mapa_tiles.draw(janela)
-
-        pygame.display.flip()
-        clock.tick(FPS)
 
 # Executa o jogo
 if __name__ == '__main__':
@@ -112,3 +99,4 @@ if __name__ == '__main__':
     assets = carrega_assets()
     
     game_loop(janela, assets)
+
