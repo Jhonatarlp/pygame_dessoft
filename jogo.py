@@ -4,6 +4,7 @@ from pygame.locals import QUIT, KEYDOWN
 from constantes import *
 import tela_inicial
 from mapa1 import MAPA1
+from mapa1  import m, p, v, c, f
 from mapa2 import MAPA2
 from classes import Tile, Jogador, Obstaculo  
 
@@ -11,21 +12,13 @@ from classes import Tile, Jogador, Obstaculo
 def carrega_assets():
     assets = {
         'muro': pygame.image.load(IMG_DIR / 'muro.png').convert_alpha(),
-<<<<<<< Updated upstream
         'ponto': pygame.image.load(IMG_DIR / 'ponto_com_caminho.png').convert_alpha(),
         'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
         'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
         'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
-=======
-        'ponto': pygame.image.load(IMG_DIR / 'vazio.png').convert_alpha(),
-        'vacuo': pygame.image.load(IMG_DIR / 'vazio.png').convert_alpha(),
-        'caminho': pygame.image.load(IMG_DIR / 'espinhos.png').convert_alpha(),
-        'fim': pygame.image.load(IMG_DIR / 'espinhos.png').convert_alpha(),
-        'inicio': pygame.image.load(IMG_DIR / 'tomb_of_foxy_inicio.png').convert_alpha(),
-        'raposa': pygame.image.load(IMG_DIR / 'foxy1.PNG').convert_alpha(),
->>>>>>> Stashed changes
     }
+    
     # Redimensiona as imagens para o tamanho do tile
     for key in assets:
         assets[key] = pygame.transform.scale(assets[key], (TAMANHO_QUADRADO, TAMANHO_QUADRADO))
@@ -45,7 +38,6 @@ def game_loop(janela, assets):
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
 
-<<<<<<< Updated upstream
     jogador = Jogador(100, 100, 5, assets['jogador'])
     game_started = True 
     running = True
@@ -56,6 +48,7 @@ def game_loop(janela, assets):
                 pygame.quit()
                 exit()
             if event.type == KEYDOWN:
+                print(f"Tecla pressionada: {event.key}")  # Adicione esta linha para verificar o teclado
                 if event.key == pygame.K_UP:
                     jogador.direcao = "cima"
                 elif event.key == pygame.K_DOWN:
@@ -66,20 +59,17 @@ def game_loop(janela, assets):
                     jogador.direcao = "direita"
             if event.type == pygame.KEYUP:
                 jogador.direcao = None
-
-        if game_started:
-            jogador.movimentar()
-            janela.fill(PRETO)
-            mapa_tiles.draw(janela) 
-            jogador.desenhar(janela)  
+        #desenha mapa e jogador
+        #if game_started:
+        jogador.movimentar(MAPA1)  ####obs###
+        janela.fill(PRETO)
+        mapa_tiles.draw(janela) 
+        jogador.desenhar(janela)  
 
         pygame.display.flip()
         clock.tick(FPS)
 
     jogador = Jogador(100, 100, 5, assets['jogador'])  # Posição inicial, velocidade e sprite do jogador
-=======
-    jogador = Jogador(100, 100, 5, assets['raposa'])  # Posição inicial e velocidade e assets
->>>>>>> Stashed changes
     game_started = False
     running = True
 
