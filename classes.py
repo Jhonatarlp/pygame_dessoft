@@ -24,9 +24,18 @@ class Obstaculo(pygame.sprite.Sprite):
     # def morrer(self):
     #     self.kill()  # Remove o obstáculo do grupo de sprites
         
+<<<<<<< Updated upstream
 class Jogador:
     def __init__(self, x, y, velocidade,imagem):
         self.posicao = pygame.Vector2(x, y)
+=======
+class Jogador(pygame.sprite.Sprite):
+    def __init__(self, x, y, velocidade, image):
+        super().__init__()
+        self.image = image  
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+>>>>>>> Stashed changes
         self.velocidade = velocidade
         self.direcao = None
         
@@ -42,12 +51,13 @@ class Jogador:
     def movimentar(self):
         # Movimenta o jogador com base na direção atual
         if self.direcao == "cima":
-            self.posicao.y -= self.velocidade
+            self.rect.y -= self.velocidade
         elif self.direcao == "baixo":
-            self.posicao.y += self.velocidade
+            self.rect.y += self.velocidade
         elif self.direcao == "esquerda":
-            self.posicao.x -= self.velocidade
+            self.rect.x -= self.velocidade
         elif self.direcao == "direita":
+<<<<<<< Updated upstream
             self.posicao.x += self.velocidade
             
             # Atualizando o rect com a nova posição
@@ -84,3 +94,10 @@ class Jogador:
 
 
         
+=======
+            self.rect.x += self.velocidade
+
+    def desenhar(self, screen):
+        # Desenha o jogador na tela
+        screen.blit(self.image, self.rect)
+>>>>>>> Stashed changes

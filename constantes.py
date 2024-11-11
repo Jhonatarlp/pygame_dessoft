@@ -5,6 +5,7 @@ import pygame
 IMG_DIR = Path(__file__).parent / 'assets'
 # Dados gerais do jogo.
 TITULO = 'Tomb of Foxy'
+<<<<<<< Updated upstream
 LARGURA = 1000 # Largura da tela
 ALTURA = 800 # Altura da tela
 TAMANHO_QUADRADO = 20 # Tamanho de cada quadrado (tile)
@@ -12,6 +13,11 @@ TAMANHO_QUADRADO = 20 # Tamanho de cada quadrado (tile)
 
 #tela de morte
 WIDTH, HEIGHT = 800, 600
+=======
+LARGURA = 1000  # Largura da tela
+ALTURA = 700  # Altura da tela
+TAMANHO_QUADRADO = 20  # Tamanho de cada quadrado (tile)
+>>>>>>> Stashed changes
 
 clock = pygame.time.Clock()
 FPS = 30 
