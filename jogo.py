@@ -47,6 +47,7 @@ def game_loop(janela, assets):
     #game_started = True 
     running = True
     
+    
     while running:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -74,7 +75,7 @@ def game_loop(janela, assets):
             moedas_coletadas += 1  # Incrementa o contador de moedas coletadas
             # for moeda in grupo_moedas:
             #     moeda.kill()  # Remove TODAS
-        print(moedas_coletadas)        
+       # print(moedas_coletadas)        
             
 
         janela.fill(PRETO)
