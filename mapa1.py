@@ -33,7 +33,7 @@ MAPA1 = [
     [m, m, m, m, p, m, m, m, m, m, m, m, m, m, m, m, m],
     [m, p, p, p, p, p, p, p, p, p, m, m, p, p, p, p, m],
     [m, p, c, c, p, m, m, m, m, p, p, p, p, c, c, p, m],
-    [m, p, c, c, p, m, v, v, v, m, m, m, m, c, c, p, m],
+    [m, p, c, c, p, m, v, v, m, m, m, m, m, c, c, p, m],
     [m, p, p, p, p, m, v, v, v, m, c, c, c, c, c, p, m],
     [m, m, m, m, m, m, v, v, v, m, c, c, c, c, c, p, m],
     [v, v, v, v, v, v, v, v, v, m, c, c, c, c, c, i, m],

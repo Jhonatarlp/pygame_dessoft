@@ -27,5 +27,4 @@ MAPA3 = [
     [v, v, v, v, v, v, v, m, m, m, m, m, p, p, p, p, p, p, m, v, v, v, v, v, v, v, v],
     [v, v, v, v, v, v, v, v, v, v, v, m, m, p, p, p, p, p, m, v, v, v, v, v, v, v, v],
     [v, v, v, v, v, v, v, v, v, v, v, v, m, m, m, m, m, m, m, v, v, v, v, v, v, v, v]
-
 ]
