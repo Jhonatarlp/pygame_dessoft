@@ -15,7 +15,7 @@ def carrega_assets():
         'ponto': pygame.image.load(IMG_DIR / 'ponto_com_caminho.png').convert_alpha(),
         'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
-        'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
+        'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha()
         # 'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
     }
     # Redimensiona as imagens para o tamanho do tile
@@ -34,6 +34,14 @@ def carrega_assets():
     img =  pygame.image.load(IMG_DIR / bolinha).convert_alpha()
     img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
     assets['bolinha'] = img
+
+    # fim_anim = []
+    # for i in range(1,3):
+    #     fim = f'fim{i}.PNG'
+    #     img =  pygame.image.load(IMG_DIR / fim).convert_alpha()
+    #     img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
+    #     fim_anim.append(img)
+    # assets['fim anim'] = fim_anim
 
     return assets
 

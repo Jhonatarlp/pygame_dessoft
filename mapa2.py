@@ -8,7 +8,7 @@ a = 'atirador'
 e = 'espinho'
 
 MAPA2 = [
-    [v, v, v, v, m, m, m, m, m, m, m, m, e, v, m, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v],
+    [v, v, v, v, m, m, m, m, m, m, m, m, e, m, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v],
     [v, v, v, v, m, p, p, p, f, m, p, p, p, m, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v],
     [v, v, v, v, m, p, m, m, m, m, m, m, p, m, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v],
     [v, v, v, v, m, p, a, a, a, a, a, m, p, m, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v, v],

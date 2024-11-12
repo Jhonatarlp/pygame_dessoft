@@ -125,9 +125,26 @@ class Jogador:
         #         self.refresh_sprites()
         #         self.desenhar_sprites()
             
-    
-    
+class Fim:
+    def __init__(self, x, y,assets):
+        self.posicao = pygame.Vector2(x, y)
+        self.tempo = 0
+        self.imagem_atual = 0
+        self.imagens = assets['fim anim']
+        
+    #     # Carrega a imagem do jogador
+        self.image = self.imagens[self.imagem_atual]  # Redimensiona 
 
+    #     # Define o rect com base na posição do jogador e na imagem
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no 
+
+    def fim_anim(self):
+        self.tempo+=1
+        if self.tempo >= 10:
+            self.tempo = 0
+            self.imagem_atual = (self.imagem_atual + 1) % 2
+            self.image = self.imagens[self.imagem_atual]
 
 
         
