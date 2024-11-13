@@ -6,7 +6,7 @@ import tela_inicial
 from mapa1 import MAPA1
 from mapa1  import m, p, v, c, f
 from mapa2 import MAPA2
-from classes import Tile, Jogador, Obstaculo  
+from classes import Tile, Jogador, Obstaculo, Moeda
 
 # Função para inicializar os assets do jogo
 def carrega_assets():
@@ -41,19 +41,28 @@ def carrega_assets():
 def game_loop(janela, assets):
     mapa_tiles = pygame.sprite.Group()
     grupo_obstaculos = pygame.sprite.Group()
-
+    grupo_moedas = pygame.sprite.Group()
+    
     for linha in range(len(MAPA1)):
         for coluna in range(len(MAPA1[linha])):
             tipo_quadrado = MAPA1[linha][coluna]
             if tipo_quadrado in assets:
-                quadrado = Tile(assets[tipo_quadrado], linha, coluna, tipo_quadrado)
+                if tipo_quadrado == p:
+                    quadrado = Tile(assets[c], linha, coluna, tipo_quadrado)
+                else:
+                    quadrado = Tile(assets[tipo_quadrado], linha, coluna, tipo_quadrado)
                 mapa_tiles.add(quadrado)
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
+                elif tipo_quadrado == 'ponto':  
+                    moeda = Moeda(coluna *TAMANHO_QUADRADO, linha *TAMANHO_QUADRADO, assets['ponto'])
+                    grupo_moedas.add(moeda)
+
 
     jogador = Jogador(x_inicial, y_inicial, 10, assets)
     #game_started = True 
     running = True
+    moedas_coletadas = 0
 
     while running:
         for event in pygame.event.get():
@@ -73,11 +82,25 @@ def game_loop(janela, assets):
                         jogador.direcao = "direita"
 
         #desenha mapa e jogador
+        # Dentro do loop do jogo, logo após movimentar o jogador
+        if jogador.verificar_colisao_moeda(grupo_moedas):  # Passa os grupos
+            moedas_coletadas += 1  # Incrementa o contador de moedas coletadas
+            # for moeda in grupo_moedas:
+            #     moeda.kill()  # Remove TODAS
+        
+
+        
         #if game_started:
         jogador.movimentar(grupo_obstaculos)  ####obs###
         janela.fill(PRETO)
-        mapa_tiles.draw(janela) 
+        mapa_tiles.draw(janela)
+        grupo_moedas.draw(janela)
         jogador.desenhar(janela)  
+        
+        fonte = pygame.font.SysFont(None, 36)
+        texto_moedas = fonte.render(f"Moedas: {moedas_coletadas}", True, (255, 255, 255))
+        janela.blit(texto_moedas, (10, 10))  # Desenha o texto no canto superior esquerdo
+
 
         pygame.display.flip()
         clock.tick(FPS)
