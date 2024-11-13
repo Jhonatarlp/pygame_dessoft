@@ -14,12 +14,21 @@ class Tile(pygame.sprite.Sprite):
         self.rect.x = coluna * constantes.TAMANHO_QUADRADO
         self.rect.y = linha * constantes.TAMANHO_QUADRADO    #
         self.tipo_quadrado = tipo_quadrado
-        
+
+class Espinho(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.Surface((20, 20))  # Tamanho do espinho
+        self.image.fill(constantes.VERMELHO)  # Cor vermelha para representar o espinho
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
 # Classe Obstáculo (obstáculo que "morre" ao colidir)
 class Obstaculo(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = pygame.Surface((40, 40))  # Tamanho do obstáculo
+        self.image = pygame.Surface((20, 20))  # Tamanho do obstáculo
         self.image.fill(constantes.VERMELHO)   # Cor do obstáculo
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -37,6 +46,7 @@ class Jogador:
         self.imagem_atual = 0
         self.imagens = assets['anim foxy']
         self.bolinha = assets['bolinha']
+        self.vida = 3
         
         # Carrega a imagem do jogador
         self.image = self.imagens[self.imagem_atual]  # Redimensiona 
@@ -44,7 +54,17 @@ class Jogador:
         # Define o rect com base na posição do jogador e na imagem
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no jogo
+        self.posicao_inicial = pygame.Vector2(x, y)
 
+    def verificar_colisao_espinho(self, grupo_espinhos):
+        # Verifica colisão com os espinhos
+        colisao_espinho = pygame.sprite.spritecollide(self, grupo_espinhos, False)
+        if colisao_espinho:
+            self.vida -= 1 
+            print(f'a vida é {self.vida}')
+            self.posicao = self.posicao_inicial
+            self.rect.topleft = (self.posicao.x, self.posicao.y)
+        return colisao_espinho    
 
     def movimentar(self,mapa):
         self.tempo+=1
@@ -83,7 +103,6 @@ class Jogador:
         #         self.direcao = 'parado'
         colisao = pygame.sprite.spritecollide(self, mapa, False)
         if colisao:
-            print('colidiu')
             if self.direcao == "cima":
                 nova_posicao.y += self.velocidade
             elif self.direcao == "baixo":
