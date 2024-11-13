@@ -125,7 +125,7 @@ def game_loop(janela, assets):
         texto_moedas = fonte.render(f"Moedas: {moedas_coletadas}", True, (255, 255, 255))
         janela.blit(texto_moedas, (10, 10))  # Desenha o texto no canto superior esquerdo
 
-        mapa_tiles.draw(janela) 
+        
         jogador.desenhar(janela)              
         janela.blit(imagem_texto, text_rect_TEMP)
 
