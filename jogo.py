@@ -6,7 +6,7 @@ import tela_inicial
 from mapa1 import MAPA1
 from mapa1  import m, p, v, c, f
 from mapa2 import MAPA2
-from classes import Tile, Jogador, Obstaculo  
+from classes import *
 
 # Função para inicializar os assets do jogo
 def carrega_assets():
@@ -35,13 +35,13 @@ def carrega_assets():
     img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
     assets['bolinha'] = img
 
-    # fim_anim = []
-    # for i in range(1,3):
-    #     fim = f'fim{i}.PNG'
-    #     img =  pygame.image.load(IMG_DIR / fim).convert_alpha()
-    #     img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
-    #     fim_anim.append(img)
-    # assets['fim anim'] = fim_anim
+    fim_anim = []
+    for i in range(1,3):
+        fim = f'fim{i}.PNG'
+        img =  pygame.image.load(IMG_DIR / fim).convert_alpha()
+        img = pygame.transform.scale(img, (20, 20))  # Redimensiona 
+        fim_anim.append(img)
+    assets['fim anim'] = fim_anim
 
     return assets
 
@@ -58,8 +58,15 @@ def game_loop(janela, assets):
                 mapa_tiles.add(quadrado)
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
+                if tipo_quadrado == 'fim':
+                    x_fim = coluna
+                    y_fim = linha
+                    fim = Fim(x_fim, y_fim, assets)
+
+
 
     jogador = Jogador(x_inicial, y_inicial, 10, assets)
+    # fim = Fim(x_fim, y_fim, assets)
     #game_started = True 
     running = True
 
@@ -83,9 +90,11 @@ def game_loop(janela, assets):
         #desenha mapa e jogador
         #if game_started:
         jogador.movimentar(grupo_obstaculos)  ####obs###
+        fim.movimenta_fim()
         janela.fill(PRETO)
         mapa_tiles.draw(janela) 
-        jogador.desenhar(janela)  
+        jogador.desenhar(janela) 
+        fim.desenhar(janela)
 
         pygame.display.flip()
         clock.tick(FPS)

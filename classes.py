@@ -67,20 +67,11 @@ class Jogador:
             nova_posicao.x-= self.velocidade
         elif self.direcao == "direita":
             nova_posicao.x += self.velocidade
-        # Converte a nova posição para coordenadas da matriz
-        # linha = int(nova_posicao.y // constantes.TAMANHO_QUADRADO)
-        # coluna = int(nova_posicao.x // constantes.TAMANHO_QUADRADO) 
-        # print(f"Verificando posição: ({linha}, {coluna})")
-        # print(f"Valor no mapa: {mapa[linha][coluna]}, p: {p}, c: {c}")
+
 
         self.posicao = nova_posicao
         self.rect.topleft = (self.posicao.x, self.posicao.y)
-        # #PRECISA TER ALGO QUE VÊ SE TA DENTRO DOS LIMITES DO MAPA
-        # if 0 <= linha < len(mapa) and 0 <= coluna < len(mapa[0]):
-        #     if mapa[linha][coluna] == p  or  mapa[linha][coluna] == c :
-        #     # Atualiza a posição do jogador se o próximo quadrado for "c"
-        #     else:
-        #         self.direcao = 'parado'
+
         colisao = pygame.sprite.spritecollide(self, mapa, False)
         if colisao:
             print('colidiu')
@@ -112,39 +103,27 @@ class Jogador:
                 return True  # Retorna verdadeiro se houver colisão
         return False    
 
-        # def novo_jogo(self):
-        #     self.all.sprites = pygame.sprite.Group()
-        #     self.rodar()
-        
-        # #loop do jogo    
-        # def rodar(self):
-        #     self.jogando = True 
-        #     while self.jogando:
-        #         self.clock.ticket(constantes.FPS)
-        #         self.eventos()
-        #         self.refresh_sprites()
-        #         self.desenhar_sprites()
             
-class Fim:
-    def __init__(self, x, y,assets):
-        self.posicao = pygame.Vector2(x, y)
-        self.tempo = 0
+class Fim(pygame.sprite.Sprite):
+    def __init__(self, x, y, assets):
+        pygame.sprite.Sprite.__init__(self)
+
         self.imagem_atual = 0
-        self.imagens = assets['fim anim']
-        
-    #     # Carrega a imagem do jogador
-        self.image = self.imagens[self.imagem_atual]  # Redimensiona 
-
-    #     # Define o rect com base na posição do jogador e na imagem
+        self.tempo = 0
+        self.images = assets['fim anim']
+        self.image = self.images[self.imagem_atual]
         self.rect = self.image.get_rect()
-        self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no 
+        self.rect.x = x * constantes.TAMANHO_QUADRADO
+        self.rect.y = y * constantes.TAMANHO_QUADRADO
+        self.rect.topleft = (self.rect.x ,self.rect.y)
 
-    def fim_anim(self):
-        self.tempo+=1
-        if self.tempo >= 10:
+    def movimenta_fim(self):
+        self.tempo += 1
+        if self.tempo >= 30:
             self.tempo = 0
             self.imagem_atual = (self.imagem_atual + 1) % 2
-            self.image = self.imagens[self.imagem_atual]
+            self.image = self.images[self.imagem_atual]
 
-
-        
+    def desenhar(self, screen):
+        # 'Desenha' o jogador 
+        screen.blit(self.image, self.rect)
