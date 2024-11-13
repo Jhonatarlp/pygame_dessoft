@@ -1,5 +1,6 @@
 from pathlib import Path
 import pygame
+from mapas import *
 
 # Estabelece a pasta que contem as figuras e sons.
 IMG_DIR = Path(__file__).parent / 'assets'
@@ -40,3 +41,7 @@ MB = 4
 E = 5
 MTL = 6
 V = 7
+
+#lista de mapas
+lista_mapas = [MAPA1, MAPA2, MAPA3]
+mapa = MAPA1

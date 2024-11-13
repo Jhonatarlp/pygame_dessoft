@@ -1,9 +1,7 @@
 
 import constantes 
 import pygame
-from mapa1 import MAPA1
-from mapa2 import MAPA2
-from mapa1  import m, p, v, c, f
+
     
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
@@ -44,7 +42,6 @@ class Moeda(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()  # Cria o retângulo para a moeda
         self.rect.x = x
         self.rect.y = y
-        
 class Jogador:
     def __init__(self, x, y, velocidade,assets):
         self.posicao = pygame.Vector2(x, y)
@@ -55,6 +52,7 @@ class Jogador:
         self.imagens = assets['anim foxy']
         self.bolinha = assets['bolinha']
         self.vida = 3
+        self.i = 0
         
         # Carrega a imagem do jogador
         self.image = self.imagens[self.imagem_atual]  # Redimensiona 
@@ -73,6 +71,16 @@ class Jogador:
             self.posicao = self.posicao_inicial
             self.rect.topleft = (self.posicao.x, self.posicao.y)
         return colisao_espinho    
+
+    def verificar_colisao_fim(self, group_fim, lista_mapas):  
+        colisao_fim = pygame.sprite.spritecollide(self, group_fim, False)
+        mapa = lista_mapas[self.i]
+        if colisao_fim:
+            self.i += 1
+            print(self.i)
+            mapa = lista_mapas[self.i]
+        return mapa    
+
 
     def movimentar(self,mapa):
         self.tempo+=1
