@@ -3,7 +3,7 @@ import pygame
 from pygame.locals import QUIT, KEYDOWN  
 from constantes import *
 import tela_inicial
-from mapas  import m, p, v, c, f
+from mapas  import *
 from classes import *
 
 
@@ -48,23 +48,23 @@ def carrega_assets():
 
 timer = 0
 # Loop principal do jogo
-def game_loop(janela, assets, mapa):
+def game_loop(janela, assets, MAPA1):
     global timer
-    mapa_tiles = pygame.sprite.Group()
+    MAPA2_tiles = pygame.sprite.Group()
     grupo_obstaculos = pygame.sprite.Group()
     grupo_moedas = pygame.sprite.Group()
     group_fim = pygame.sprite.Group()
     grupo_espinhos = pygame.sprite.Group()
 
-    for linha in range(len(mapa)):
-        for coluna in range(len(mapa[linha])):
-            tipo_quadrado = mapa[linha][coluna]
+    for linha in range(len(MAPA1)):
+        for coluna in range(len(MAPA1[linha])):
+            tipo_quadrado = MAPA1[linha][coluna]
             if tipo_quadrado in assets:
                 if tipo_quadrado == p:
                     quadrado = Tile(assets[c], linha, coluna, tipo_quadrado)
                 else:
                     quadrado = Tile(assets[tipo_quadrado], linha, coluna, tipo_quadrado)
-                mapa_tiles.add(quadrado)
+                MAPA2_tiles.add(quadrado)
                 
                 if tipo_quadrado == 'muro': 
                     grupo_obstaculos.add(quadrado)
@@ -108,30 +108,32 @@ def game_loop(janela, assets, mapa):
         imagem_texto = pygame.font.Font(None, 20).render(texto_tempo, True, (255, 255, 255))  # T exto em branco
         text_rect_TEMP = imagem_texto.get_rect(center=(LARGURA // 2, ALTURA - 45))
 
-        #desenha mapa e jogador
+        #desenha MAPA2 e jogador
         # Dentro do loop do jogo, logo após movimentar o jogador
         if jogador.verificar_colisao_moeda(grupo_moedas):  # Passa os grupos
             moedas_coletadas += 1  # Incrementa o contador de moedas coletadas
             # for moeda in grupo_moedas:
             #     moeda.kill()  # Remove TODAS
         
-        #desenha mapa e jogador e espinho
+        #desenha MAPA2 e jogador e espinho
         #if game_started:
         jogador.movimentar(grupo_obstaculos)  ####obs###
         fim.movimenta_fim()
         jogador.verificar_colisao_fim(group_fim, lista_mapas)
         janela.fill(PRETO)
-        mapa_tiles.draw(janela) 
+        MAPA2_tiles.draw(janela) 
         jogador.desenhar(janela) 
         fim.desenhar(janela)
         variavel = jogador.verificar_colisao_espinho(grupo_espinhos) ###obs###
         if variavel:
             jogador.direcao = 'parado'
         if jogador.vida == 0:
-            exit()
+            tela_game_over(janela)
+            return  # Sai do loop do jogo
+
 
         janela.fill(PRETO)
-        mapa_tiles.draw(janela)
+        MAPA2_tiles.draw(janela)
         grupo_moedas.draw(janela)
         jogador.desenhar(janela)  
         
@@ -153,4 +155,4 @@ if __name__ == '__main__':
     janela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption(TITULO)
     assets = carrega_assets()
-    game_loop(janela, assets, mapa)
+    game_loop(janela, assets, MAPA1)

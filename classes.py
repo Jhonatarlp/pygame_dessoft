@@ -1,7 +1,25 @@
 
 import constantes 
 import pygame
+from pygame.locals import QUIT, KEYDOWN
 
+def tela_game_over(janela):
+    # Carrega a imagem de "game over"
+    imagem_game_over = pygame.image.load('assets/gameover.jfif').convert()
+    imagem_game_over = pygame.transform.scale(imagem_game_over, (constantes.LARGURA, constantes.ALTURA))
+    
+    # Exibe a imagem na janela
+    janela.blit(imagem_game_over, (0, 0))
+    pygame.display.flip()
+    
+    # Espera que o jogador pressione uma tecla para sair
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()
+            if event.type == KEYDOWN:
+                return  # Voltar para a tela inicial ou reiniciar
     
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
@@ -172,3 +190,4 @@ class Fim(pygame.sprite.Sprite):
         # 'Desenha' o jogador 
         screen.blit(self.image, self.rect)
     
+
