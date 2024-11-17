@@ -142,9 +142,6 @@ def game_loop(janela, assets, lista_mapas):
                 tela_game_over(janela)
                 return
             
-
-    
-        
         janela.fill(PRETO)
         MAPA_tiles.draw(janela)
         grupo_moedas.draw(janela)
