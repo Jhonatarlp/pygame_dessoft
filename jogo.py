@@ -15,8 +15,7 @@ def carrega_assets():
         'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
         'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
-        'espinho': pygame.image.load(IMG_DIR / 'espinhos.png').convert_alpha(),
-        'atirador': pygame.image.load(IMG_DIR / 'atirador_tiro.png').convert_alpha(),
+        'espinho': pygame.image.load(IMG_DIR / 'espinho.png').convert_alpha(),
         # 'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
     }
     # Redimensiona as imagens para o tamanho do tile
@@ -67,7 +66,7 @@ def carregar_mapa(mapa, assets):
                 quadrado = Tile(assets[tipo_quadrado], linha, coluna, tipo_quadrado)
             mapa_tiles.add(quadrado)
             
-            if tipo_quadrado == 'muro': 
+            if tipo_quadrado == 'muro':
                 grupo_obstaculos.add(quadrado)
             elif tipo_quadrado == 'ponto':  
                 moeda = Moeda(coluna *TAMANHO_QUADRADO, linha *TAMANHO_QUADRADO, assets['ponto'])
@@ -161,7 +160,7 @@ def game_loop(janela, assets, lista_mapas):
         janela.blit(imagem_texto, text_rect_TEMP)
 
         pygame.display.flip()
-        clock.tick(FPS)
+        clock.tick(FPS) 
 
 
 # Executa o jogo
