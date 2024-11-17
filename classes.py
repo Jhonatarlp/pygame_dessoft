@@ -23,22 +23,22 @@ def tela_game_over(janela):
     
 # Classe Tile (representa um caminho)
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, image, linha, coluna, tipo_quadrado):
+    def __init__(self, image, linha, coluna, tipo_quadrado, deslocamento_x=0, deslocamento_y=0):
         super().__init__()
         self.image = image  
         self.rect = self.image.get_rect()
-        self.rect.x = coluna * constantes.TAMANHO_QUADRADO
-        self.rect.y = linha * constantes.TAMANHO_QUADRADO    #
+        self.rect.x = coluna * constantes.TAMANHO_QUADRADO + deslocamento_x
+        self.rect.y = linha * constantes.TAMANHO_QUADRADO + deslocamento_y
         self.tipo_quadrado = tipo_quadrado
 
 class Espinho(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, deslocamento_x=0, deslocamento_y=0):
         super().__init__()
         self.image = pygame.Surface((20, 20))  # Tamanho do espinho
         self.image.fill(constantes.VERMELHO)  # Cor vermelha para representar o espinho
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = x + deslocamento_x
+        self.rect.y = y + deslocamento_y
 
 # Classe Obstáculo (obstáculo que "morre" ao colidir)
 class Obstaculo(pygame.sprite.Sprite):
@@ -53,16 +53,18 @@ class Obstaculo(pygame.sprite.Sprite):
     # def morrer(self):
     #     self.kill()  # Remove o obstáculo do grupo de sprites
 class Moeda(pygame.sprite.Sprite):
-    def __init__(self, x, y, imagem_moeda):
+    def __init__(self, x, y, imagem_moeda, deslocamento_x=0, deslocamento_y=0):
         super().__init__()
         self.image = pygame.image.load(constantes.IMG_DIR / 'ponto_com_caminho.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (20, 20))
         self.rect = self.image.get_rect()  # Cria o retângulo para a moeda
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = x + deslocamento_x
+        self.rect.y = y + deslocamento_y
+
 class Jogador:
-    def __init__(self, x, y, velocidade,assets):
-        self.posicao = pygame.Vector2(x, y)
+    def __init__(self, x, y, velocidade, assets, deslocamento_x=0, deslocamento_y=0):
+        self.posicao = pygame.Vector2(x + deslocamento_x, y + deslocamento_y)
+        self.posicao_inicial = pygame.Vector2(x + deslocamento_x, y + deslocamento_y)
         self.velocidade = velocidade
         self.direcao = 'parado'
         self.tempo = 0
@@ -71,14 +73,13 @@ class Jogador:
         self.bolinha = assets['bolinha']
         self.vida = 3
         self.i = 0
-        
-        # Carrega a imagem do jogador
-        self.image = self.imagens[self.imagem_atual]  # Redimensiona 
 
-        # Define o rect com base na posição do jogador e na imagem
+        # Carrega a imagem do jogador
+        self.image = self.imagens[self.imagem_atual]
+
+        # Define o rect com base na posição inicial
         self.rect = self.image.get_rect()
-        self.rect.topleft = (self.posicao.x, self.posicao.y)  # A posição inicial do jogador no jogo
-        self.posicao_inicial = pygame.Vector2(x, y)
+        self.rect.topleft = (self.posicao.x, self.posicao.y)
 
     def verificar_colisao_espinho(self, grupo_espinhos):
         # Verifica colisão com os espinhos
@@ -165,19 +166,16 @@ class Jogador:
                 return True  # Retorna verdadeiro se a moeda foi coletada
         return False
 
-            
 class Fim(pygame.sprite.Sprite):
-    def __init__(self, x, y, assets):
-        pygame.sprite.Sprite.__init__(self)
-
+    def __init__(self, x, y, assets, deslocamento_x=0, deslocamento_y=0):
+        super().__init__()
         self.imagem_atual = 0
         self.tempo = 0
         self.images = assets['fim anim']
         self.image = self.images[self.imagem_atual]
         self.rect = self.image.get_rect()
-        self.rect.x = x * constantes.TAMANHO_QUADRADO
-        self.rect.y = y * constantes.TAMANHO_QUADRADO
-        self.rect.topleft = (self.rect.x ,self.rect.y)
+        self.rect.x = x * constantes.TAMANHO_QUADRADO + deslocamento_x
+        self.rect.y = y * constantes.TAMANHO_QUADRADO + deslocamento_y
 
     def movimenta_fim(self):
         self.tempo += 1

@@ -48,8 +48,7 @@ def carrega_assets():
 
 timer = 0
 # Loop principal do jogo
-def carregar_mapa(mapa, assets):
-    #global timer
+def carregar_mapa(mapa, assets, largura_tela, altura_tela):
     mapa_tiles = pygame.sprite.Group()
     grupo_obstaculos = pygame.sprite.Group()
     grupo_moedas = pygame.sprite.Group()
@@ -57,39 +56,48 @@ def carregar_mapa(mapa, assets):
     grupo_espinhos = pygame.sprite.Group()
     grupo_inicios = pygame.sprite.Group()
 
+    # Calcula tamanho do mapa
+    altura_mapa = len(mapa) * constantes.TAMANHO_QUADRADO
+    largura_mapa = len(mapa[0]) * constantes.TAMANHO_QUADRADO
+
+    # Calcula o deslocamento para centralizar o mapa na tela
+    deslocamento_x = (LARGURA - largura_mapa) // 2
+    deslocamento_y = (ALTURA - altura_mapa) // 2
+
     for linha in range(len(mapa)):
         for coluna in range(len(mapa[linha])):
             tipo_quadrado = mapa[linha][coluna]
-            # if tipo_quadrado in assets:
+            x = coluna * constantes.TAMANHO_QUADRADO
+            y = linha * constantes.TAMANHO_QUADRADO
+
             if tipo_quadrado == 'ponto' or tipo_quadrado == 'inicio':
-                quadrado = Tile(assets['caminho'], linha, coluna, tipo_quadrado)
+                quadrado = Tile(assets['caminho'], linha, coluna, tipo_quadrado, deslocamento_x, deslocamento_y)
             else:
-                quadrado = Tile(assets[tipo_quadrado], linha, coluna, tipo_quadrado)
+                quadrado = Tile(assets[tipo_quadrado], linha, coluna, tipo_quadrado, deslocamento_x, deslocamento_y)
             mapa_tiles.add(quadrado)
-            
+
             if tipo_quadrado == 'muro': 
                 grupo_obstaculos.add(quadrado)
             elif tipo_quadrado == 'ponto':  
-                moeda = Moeda(coluna *TAMANHO_QUADRADO, linha *TAMANHO_QUADRADO, assets['ponto'])
+                moeda = Moeda(x, y, assets['ponto'], deslocamento_x, deslocamento_y)
                 grupo_moedas.add(moeda)
             elif tipo_quadrado == 'espinho':
-                espinho = Espinho(coluna * constantes.TAMANHO_QUADRADO, linha * constantes.TAMANHO_QUADRADO)
+                espinho = Espinho(x, y, deslocamento_x, deslocamento_y)
                 grupo_espinhos.add(espinho)
-            if tipo_quadrado == 'fim':
-                x_fim = coluna
-                y_fim = linha
-                fim = Fim(x_fim, y_fim, assets)
+            elif tipo_quadrado == 'fim':
+                fim = Fim(x // constantes.TAMANHO_QUADRADO, y // constantes.TAMANHO_QUADRADO, assets, deslocamento_x, deslocamento_y)
                 group_fim.add(fim)
             elif tipo_quadrado == 'inicio':  # Encontra o ponto inicial
                 grupo_inicios.add(quadrado)
-                    
+
     return mapa_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios
+
 
 def game_loop(janela, assets, lista_mapas):
     global timer
     index_mapa = 0  # Índice do mapa atual
     
-    MAPA_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios = carregar_mapa(lista_mapas[index_mapa], assets)
+    MAPA_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios = carregar_mapa(lista_mapas[index_mapa], assets, constantes.LARGURA, constantes.ALTURA)
     
     start = grupo_inicios.sprites()[0]
 
@@ -134,8 +142,8 @@ def game_loop(janela, assets, lista_mapas):
             index_mapa += 1
             if index_mapa < len(lista_mapas):
                 # Carrega o próximo mapa
-                MAPA_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios = carregar_mapa(lista_mapas[index_mapa], assets)
-                
+                MAPA_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios = carregar_mapa(lista_mapas[index_mapa], assets, constantes.LARGURA, constantes.ALTURA)
+  
                 start = grupo_inicios.sprites()[0]
                 jogador.posicao = pygame.Vector2(start.rect.x, start.rect.y) 
                 jogador.rect.topleft = (jogador.posicao.x, jogador.posicao.y)
@@ -155,6 +163,8 @@ def game_loop(janela, assets, lista_mapas):
         fonte = pygame.font.SysFont(None, 36)
         texto_moedas = fonte.render(f"Moedas: {moedas_coletadas}", True, (255, 255, 255))
         janela.blit(texto_moedas, (10, 10))  # Desenha no canto superior esquerdo
+
+        timer += loop_time
         texto_tempo = f"Tempo: {timer:.2f} segundos"
         imagem_texto = pygame.font.Font(None, 20).render(texto_tempo, True, (255, 255, 255))
         text_rect_TEMP = imagem_texto.get_rect(center=(LARGURA // 2, ALTURA - 45))
