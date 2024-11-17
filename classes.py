@@ -2,7 +2,6 @@
 import constantes 
 import pygame
 from pygame.locals import QUIT, KEYDOWN
-from mapas  import *
 
 def tela_game_over(janela):
     # Carrega a imagem de "game over"
@@ -188,5 +187,3 @@ class Fim(pygame.sprite.Sprite):
     def desenhar(self, screen):
         # 'Desenha' o jogador 
         screen.blit(self.image, self.rect)
-    
-
