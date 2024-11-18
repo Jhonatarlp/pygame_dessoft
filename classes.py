@@ -30,15 +30,21 @@ class Tile(pygame.sprite.Sprite):
         self.rect.x = coluna * constantes.TAMANHO_QUADRADO + deslocamento_x
         self.rect.y = linha * constantes.TAMANHO_QUADRADO + deslocamento_y
         self.tipo_quadrado = tipo_quadrado
-
+        
 class Espinho(pygame.sprite.Sprite):
-    def __init__(self, x, y, deslocamento_x=0, deslocamento_y=0):
+    def __init__(self, x, y, asset,deslocamento_x=0, deslocamento_y=0):
         super().__init__()
         self.image = pygame.Surface((20, 20))  # Tamanho do espinho
         self.image.fill(constantes.VERMELHO)  # Cor vermelha para representar o espinho
         self.rect = self.image.get_rect()
         self.rect.x = x + deslocamento_x
         self.rect.y = y + deslocamento_y
+        print(f"Espinho criado: rect ({self.rect.x}, {self.rect.y}, {self.rect.width}, {self.rect.height})")
+
+    def desenhar(self, janela):
+        """Desenha o espinho na tela."""
+        janela.blit(self.image, self.rect)
+
 
 # Classe Obstáculo (obstáculo que "morre" ao colidir)
 class Obstaculo(pygame.sprite.Sprite):
@@ -50,8 +56,6 @@ class Obstaculo(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    # def morrer(self):
-    #     self.kill()  # Remove o obstáculo do grupo de sprites
 class Moeda(pygame.sprite.Sprite):
     def __init__(self, x, y, imagem_moeda, deslocamento_x=0, deslocamento_y=0):
         super().__init__()
@@ -73,6 +77,7 @@ class Jogador:
         self.bolinha = assets['bolinha']
         self.vida = 3
         self.i = 0
+        
 
         # Carrega a imagem do jogador
         self.image = self.imagens[self.imagem_atual]
@@ -80,12 +85,14 @@ class Jogador:
         # Define o rect com base na posição inicial
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.posicao.x, self.posicao.y)
+        print(f"Jogador criado: rect ({self.rect.x}, {self.rect.y}, {self.rect.width}, {self.rect.height})")
 
     def verificar_colisao_espinho(self, grupo_espinhos):
         # Verifica colisão com os espinhos
         colisao_espinho = pygame.sprite.spritecollide(self, grupo_espinhos, False)
         if colisao_espinho:
             self.vida -= 1 
+            print(f"Colisão detectada com espinho na posição: {self.rect.topleft}")
             print(f'a vida é {self.vida}')
             self.posicao = self.posicao_inicial
             self.rect.topleft = (self.posicao.x, self.posicao.y)
@@ -96,7 +103,6 @@ class Jogador:
         mapa = lista_mapas[self.i]
         if colisao_fim:
             self.i += 1
-            print(self.i)
             mapa = lista_mapas[self.i]
         return mapa    
 
@@ -148,7 +154,6 @@ class Jogador:
     def desenhar(self, screen):
         # 'Desenha' o jogador 
         screen.blit(self.image, self.rect)
-        # pygame.draw.rect(screen, (255,255,255), self.rect)
         
         
     def verificar_colisao(self, obstaculos):
@@ -161,7 +166,6 @@ class Jogador:
     def verificar_colisao_moeda(self,moedas): 
         for moeda in moedas:
             if self.rect.colliderect(moeda.rect):
-                print(moeda.rect)
                 moeda.kill()
                 return True  # Retorna verdadeiro se a moeda foi coletada
         return False
