@@ -144,8 +144,7 @@ def game_loop(janela, assets, lista_mapas):
                 MAPA_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios = carregar_mapa(lista_mapas[index_mapa], assets, constantes.LARGURA, constantes.ALTURA)
   
                 start = grupo_inicios.sprites()[0]
-                jogador.posicao = pygame.Vector2(start.rect.x, start.rect.y) 
-                jogador.rect.topleft = (jogador.posicao.x, jogador.posicao.y)
+                jogador.resetar_posicao(start.rect.x, start.rect.y)
             else:
                 tela_game_over(janela)
                 return
@@ -178,6 +177,10 @@ if __name__ == '__main__':
     janela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption(TITULO)
     assets = carrega_assets()
-    lista_mapas = [MAPA1, MAPA2, MAPA3]  # Adicione todos os seus mapas aqui
+    lista_mapas = [
+        MAPA1,
+        MAPA2,
+        MAPA3
+    ]  # Adicione todos os seus mapas aqui
     game_loop(janela, assets, lista_mapas)
    

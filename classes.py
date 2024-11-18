@@ -41,14 +41,14 @@ class Espinho(pygame.sprite.Sprite):
         self.rect.y = y + deslocamento_y
 
 # Classe Obstáculo (obstáculo que "morre" ao colidir)
-class Obstaculo(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        self.image = pygame.Surface((20, 20))  # Tamanho do obstáculo
-        self.image.fill(constantes.VERMELHO)   # Cor do obstáculo
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+# class Obstaculo(pygame.sprite.Sprite):
+#     def __init__(self, x, y):
+#         super().__init__()
+#         self.image = pygame.Surface((20, 20))  # Tamanho do obstáculo
+#         self.image.fill(constantes.VERMELHO)   # Cor do obstáculo
+#         self.rect = self.image.get_rect()
+#         self.rect.x = x
+#         self.rect.y = y
 
     # def morrer(self):
     #     self.kill()  # Remove o obstáculo do grupo de sprites
@@ -62,9 +62,9 @@ class Moeda(pygame.sprite.Sprite):
         self.rect.y = y + deslocamento_y
 
 class Jogador:
-    def __init__(self, x, y, velocidade, assets, deslocamento_x=0, deslocamento_y=0):
-        self.posicao = pygame.Vector2(x + deslocamento_x, y + deslocamento_y)
-        self.posicao_inicial = pygame.Vector2(x + deslocamento_x, y + deslocamento_y)
+    def __init__(self, x, y, velocidade, assets):
+        self.posicao = pygame.Vector2(x, y)
+        self.posicao_inicial = pygame.Vector2(x, y)
         self.velocidade = velocidade
         self.direcao = 'parado'
         self.tempo = 0
@@ -78,6 +78,12 @@ class Jogador:
         self.image = self.imagens[self.imagem_atual]
 
         # Define o rect com base na posição inicial
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.posicao.x, self.posicao.y)
+        
+    def resetar_posicao(self, x, y):
+        self.posicao = pygame.Vector2(x, y)
+        self.posicao_inicial = pygame.Vector2(x, y)
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.posicao.x, self.posicao.y)
 
