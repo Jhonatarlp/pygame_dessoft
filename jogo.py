@@ -81,14 +81,16 @@ def carregar_mapa(mapa, assets, largura_tela, altura_tela):
                 moeda = Moeda(x, y, assets['ponto'], deslocamento_x, deslocamento_y)
                 grupo_moedas.add(moeda)
             elif tipo_quadrado == 'espinho':
-                espinho = Espinho(x, y, deslocamento_x, deslocamento_y)
+                espinho = Espinho(x, y, assets['espinho'], deslocamento_x, deslocamento_y)
                 grupo_espinhos.add(espinho)
+                print(f"Espinho adicionado na posição: ({espinho.rect.x}, {espinho.rect.y})")
             elif tipo_quadrado == 'fim':
                 fim = Fim(x // constantes.TAMANHO_QUADRADO, y // constantes.TAMANHO_QUADRADO, assets, deslocamento_x, deslocamento_y)
                 group_fim.add(fim)
             elif tipo_quadrado == 'inicio':  # Encontra o ponto inicial
+                quadrado = Tile(assets['caminho'], linha, coluna, tipo_quadrado, deslocamento_x, deslocamento_y)
                 grupo_inicios.add(quadrado)
-
+                print(f"Tile de início adicionado: linha {linha}, coluna {coluna}, posição ({quadrado.rect.x}, {quadrado.rect.y})")
     return mapa_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios
 
 
@@ -112,9 +114,7 @@ def game_loop(janela, assets, lista_mapas):
                 pygame.quit()
                 exit()
             if event.type == KEYDOWN:
-                #print(f"Tecla pressionada: {event.key}")  # Adicione esta linha para verificar o teclado
-                
-                if jogador.direcao == 'parado': 
+                if jogador.direcao == 'parado':
                     if event.key == pygame.K_UP:
                         jogador.direcao = "cima"
                     elif event.key == pygame.K_DOWN:
@@ -123,6 +123,23 @@ def game_loop(janela, assets, lista_mapas):
                         jogador.direcao = "esquerda"
                     elif event.key == pygame.K_RIGHT:
                         jogador.direcao = "direita"
+                
+                # Atalho para mudar o mapa (tecla TAB)
+                if event.key == pygame.K_TAB:
+                    index_mapa += 1
+                    if index_mapa < len(lista_mapas):
+                        # Carrega o próximo mapa
+                        MAPA_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios = carregar_mapa(
+                            lista_mapas[index_mapa], assets, constantes.LARGURA, constantes.ALTURA
+                        )
+                        # Posiciona o jogador no início do novo mapa
+                        start = grupo_inicios.sprites()[0]
+                        jogador.posicao = pygame.Vector2(start.rect.x, start.rect.y)
+                        jogador.rect.topleft = (jogador.posicao.x, jogador.posicao.y)
+                        print(f"Mapa alterado para {index_mapa}")
+                    else:
+                        print("Você já está no último mapa!")
+                        index_mapa -= 1  # Volta para o último mapa válido
         jogador.movimentar(grupo_obstaculos)
 
         # Dentro do loop do jogo, logo após movimentar o jogador
@@ -156,6 +173,8 @@ def game_loop(janela, assets, lista_mapas):
         jogador.desenhar(janela)
         for fim in group_fim:
             fim.desenhar(janela)
+        for espinho in grupo_espinhos:
+            espinho.desenhar(janela)
 
         # Desenha informações de status
         fonte = pygame.font.SysFont(None, 36)
