@@ -97,7 +97,7 @@ MAPA3 = [
     [m, p, m, p, m, p, m, m, m, m, p, m, p, m, p, m, p, m, m, m, m, m, p, p, p, p, m, p, p, p, p, p, p, p, m, p, p, p, p, m],
     [m, p, m, p, m, p, p, p, p, m, p, m, p, m, p, p, p, p, p, p, p, e, m, m, m, m, m, p, m, m, m, m, m, p, m, m, m, m, p, m],
     [m, p, m, p, m, p, m, m, p, m, p, m, p, m, p, m, p, m, p, m, p, m, p, p, m, m, p, p, p, p, m, v, m, p, p, p, p, m, p, m],
-    [m, p, m, p, m, p, p, m, p, m, p, m, p, m, p, m, p, m, p, m, p, m, p, p, m, m, p, m, m, p, p, m, m, m, m, m, p, m, p, m],
+    [m, p, m, p, m, p, p, p, p, m, p, m, p, m, p, m, p, m, p, m, p, m, p, p, m, m, p, m, m, p, p, m, m, m, m, m, p, m, p, m],
     [m, p, m, p, m, m, m, m, p, m, p, m, p, p, p, p, p, m, p, m, p, m, p, p, p, p, p, e, m, m, p, m, p, p, p, m, p, m, p, m],
     [m, p, m, p, p, p, p, p, p, m, p, m, m, m, m, m, m, m, p, m, p, p, m, p, m, m, m, p, p, m, p, m, p, m, p, p, p, m, p, m],
     [m, p, m, p, m, m, m, m, m, m, p, m, e, p, p, p, p, p, p, m, m, p, p, p, m, p, p, p, p, p, p, m, p, m, m, m, m, m, p, m],
