@@ -85,3 +85,5 @@ O jogo foi desenvolvido em Python com a biblioteca **Pygame**, utilizando os seg
   - Adicionada trilha sonora contínua para aumentar a imersão do jogador.
 
 ---
+
+[Assista ao vídeo](https://youtu.be/NrGmNXJkmt4)
