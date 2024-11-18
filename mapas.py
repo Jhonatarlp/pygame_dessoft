@@ -65,7 +65,7 @@ MAPA2 = [
 ]
 
 MAPA3 = [
-    [v , v , v , v , v , v , v , v , v , v , v , v , v , v , m , m , m , m , m , m , m , m , m , v , v , v , v , v , v , v , v , v , v ],
+    [v , v , v , v , v , v , v , v , v , v , v , v , v , v , m , m , m , m , m , m , m , m , m , v , v , v , v , v ,  v , v , v , v , v ],
     [v , v , v , v , v , v , v , v , v , v , v , v , m , m , m , p , p , p , m , p , p , p , m , m , m , m , v , v , v , v , v , v , v ],
     [v , v , v , v , v , v , v , v , v , v , m , m , m , f , m , p , m , p , m , p , m , p , p , p , p , m , v , v , v , v , v , v , v ],
     [v , v , v , v , v , v , v , v , v , v , m , p , p , p , p , p , m , p , p , p , m , m , m , m , p , m , v , v , v , v , v , v , v ],
@@ -79,10 +79,10 @@ MAPA3 = [
     [m , m , m , p , m , m , m , m , m , m , m , m , p , m , p , p , m , v , v , m , m , m , m , m , m , p , m , m , v , v , v , v , v ],
     [v , e , p , p , p , m , p , p , p , p , p , p , p , m , m , m , m , v , v , v , v , v , m , p , p , p , m , v , v , v , v , v , v ],
     [v , m , p , m , p , m , p , m , p , m , m , m , m , m , v , v , v , v , v , v , v , v , m , p , m , m , m , v , v , v , v , v , v ],
-    [v , m , i , p , p , p , p , p , p , m , v , v , v , v , v , v , v , v , m , e , e , e , e , p , m , v , v , v , v , v , v , v , v ],
+    [v , m , p , p , p , p , p , p , p , m , v , v , v , v , v , v , v , v , m , e , e , e , e , p , m , v , v , v , v , v , v , v , v ],
     [v , m , m , m , m , m , m , m , m , m , v , v , v , v , v , v , v , v , m , c , c , c , c , c , m , v , v , v , v , v , v , v , v ],
     [v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , m , c , c , c , c , c , m , v , v , v , v , v , v , v , v ],
-    [v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , m , c , c , c , c , c , m , v , v , v , v , v , v , v , v ],
+    [v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , m , c , c , i , c , c , m , v , v , v , v , v , v , v , v ],
     [v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , v , m , m , m , m , m , m , m , v , v , v , v , v , v , v , v ]    
 ]
 
