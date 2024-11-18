@@ -93,6 +93,37 @@ def carregar_mapa(mapa, assets, largura_tela, altura_tela):
                 print(f"Tile de início adicionado: linha {linha}, coluna {coluna}, posição ({quadrado.rect.x}, {quadrado.rect.y})")
     return mapa_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios
 
+def tela_final(janela, tempo_gasto):
+    # Define o fundo preto
+    janela.fill((0, 0, 0))
+
+    # Configura fontes e mensagens
+    fonte_grande = pygame.font.SysFont(None, 72)
+    fonte_pequena = pygame.font.SysFont(None, 36)
+
+    mensagem_parabens = fonte_grande.render("Parabéns!", True, (255, 255, 255))
+    mensagem_tempo = fonte_pequena.render(f"Você terminou em {tempo_gasto:.2f} segundos!", True, (255, 255, 255))
+    mensagem_sair = fonte_pequena.render("Pressione qualquer tecla para sair.", True, (255, 255, 255))
+
+    # Centraliza as mensagens na tela
+    rect_parabens = mensagem_parabens.get_rect(center=(LARGURA // 2, ALTURA // 3))
+    rect_tempo = mensagem_tempo.get_rect(center=(LARGURA // 2, ALTURA // 2))
+    rect_sair = mensagem_sair.get_rect(center=(LARGURA // 2, ALTURA // 1.5))
+
+    # Desenha as mensagens na janela
+    janela.blit(mensagem_parabens, rect_parabens)
+    janela.blit(mensagem_tempo, rect_tempo)
+    janela.blit(mensagem_sair, rect_sair)
+
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()
+            if event.type == KEYDOWN:
+                pygame.quit()
+                exit()
 
 def game_loop(janela, assets, lista_mapas):
     global timer
@@ -138,8 +169,8 @@ def game_loop(janela, assets, lista_mapas):
                         jogador.rect.topleft = (jogador.posicao.x, jogador.posicao.y)
                         print(f"Mapa alterado para {index_mapa}")
                     else:
-                        print("Você já está no último mapa!")
-                        index_mapa -= 1  # Volta para o último mapa válido
+                        # Exibe a tela final
+                        tela_final(janela, timer)
         jogador.movimentar(grupo_obstaculos)
 
         # Dentro do loop do jogo, logo após movimentar o jogador
