@@ -102,7 +102,7 @@ MAPA3 = [
     [m, p, m, p, p, p, p, p, p, m, p, m, m, m, m, m, m, m, p, m, p, p, m, p, m, m, m, p, p, m, p, m, p, m, p, p, p, m, p, m],
     [m, p, m, p, m, m, m, m, m, m, p, m, e, p, p, p, p, p, p, m, m, p, p, p, m, p, p, p, p, p, p, m, p, m, m, m, m, m, p, m],
     [m, p, p, p, p, p, p, p, p, p, p, m, m, m, m, m, m, m, m, m, m, m, m, m, p, p, p, p, m, m, m, m, p, m, p, p, p, m, i, m],
-    [m, e, m, m, m, m, m, m, m, m, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, m, m, m, m, m, p, p, p, p, p, m, m, p, m, m],
+    [m, e, m, m, m, m, m, m, m, m, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, m, m, m, m, m, p, p, p, p, p, m, p, e, m, m],
     [m, m, m, v, v, v, v, v, v, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, v, v, v, m, m, m, m, m, m, m, m, m, m, m],
 
 ]
