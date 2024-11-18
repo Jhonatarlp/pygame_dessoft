@@ -54,7 +54,6 @@ O jogo foi desenvolvido em Python com a biblioteca **Pygame**, utilizando os seg
 - **Python 3.11.4**: Linguagem de programação principal.
 - **Pygame**: Biblioteca para criação de jogos 2D, responsável por animações, colisões e gerenciamento de sprites.
 - **Pygame.mixer**: Usado para adicionar música de fundo.
-- **Chat-GPT**: Foi utilizado para auxílio de dúvidas.
 
 ### Estrutura do Código:
 - **Mapas**:

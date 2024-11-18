@@ -25,7 +25,7 @@ def carrega_assets():
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
         'espinho': pygame.image.load(IMG_DIR / 'espinho.png').convert_alpha(),  
     }
-    
+
     # Redimensiona as imagens para o tamanho do tile
     for key in assets:
         assets[key] = pygame.transform.scale(assets[key], (TAMANHO_QUADRADO, TAMANHO_QUADRADO))
@@ -193,6 +193,12 @@ def game_loop(janela, assets, lista_mapas):
         imagem_texto = pygame.font.Font(None, 20).render(texto_tempo, True, (255, 255, 255))
         text_rect_TEMP = imagem_texto.get_rect(center=(LARGURA // 2, ALTURA - 45))
         janela.blit(imagem_texto, text_rect_TEMP)
+
+        #vida
+        texto_vida = f"vida: {jogador.vida}/3 "
+        imagem_vida = pygame.font.Font(None, 50).render(texto_vida, True, (255, 255, 255))
+        text_rect_vida = imagem_vida.get_rect(center=(LARGURA // 2, 50))
+        janela.blit(imagem_vida, text_rect_vida)
 
         pygame.display.flip()
         clock.tick(FPS)
