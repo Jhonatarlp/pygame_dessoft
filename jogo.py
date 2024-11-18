@@ -6,8 +6,16 @@ import tela_inicial
 from mapas  import *
 from classes import *
 
+# Carregar a música de fundo
+pygame.mixer.music.load("assets/fundo.mp3")
 
-# Função para inicializar os assets do jogo
+# Definir o volume (0.0 a 1.0, opcional)
+pygame.mixer.music.set_volume(0.5)
+
+# Tocar a música em loop (-1 para repetir)
+pygame.mixer.music.play(-1)
+
+
 def carrega_assets():
     assets = {
         'muro': pygame.image.load(IMG_DIR / 'muro.png').convert_alpha(),
@@ -83,14 +91,14 @@ def carregar_mapa(mapa, assets, largura_tela, altura_tela):
             elif tipo_quadrado == 'espinho':
                 espinho = Espinho(x, y, assets['espinho'], deslocamento_x, deslocamento_y)
                 grupo_espinhos.add(espinho)
-                print(f"Espinho adicionado na posição: ({espinho.rect.x}, {espinho.rect.y})")
+                #print(f"Espinho adicionado na posição: ({espinho.rect.x}, {espinho.rect.y})")
             elif tipo_quadrado == 'fim':
                 fim = Fim(x // constantes.TAMANHO_QUADRADO, y // constantes.TAMANHO_QUADRADO, assets, deslocamento_x, deslocamento_y)
                 group_fim.add(fim)
             elif tipo_quadrado == 'inicio':  # Encontra o ponto inicial
                 quadrado = Tile(assets['caminho'], linha, coluna, tipo_quadrado, deslocamento_x, deslocamento_y)
                 grupo_inicios.add(quadrado)
-                print(f"Tile de início adicionado: linha {linha}, coluna {coluna}, posição ({quadrado.rect.x}, {quadrado.rect.y})")
+                #print(f"Tile de início adicionado: linha {linha}, coluna {coluna}, posição ({quadrado.rect.x}, {quadrado.rect.y})")
     return mapa_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios
 
 
@@ -136,9 +144,9 @@ def game_loop(janela, assets, lista_mapas):
                         start = grupo_inicios.sprites()[0]
                         jogador.posicao = pygame.Vector2(start.rect.x, start.rect.y)
                         jogador.rect.topleft = (jogador.posicao.x, jogador.posicao.y)
-                        print(f"Mapa alterado para {index_mapa}")
+                        #print(f"Mapa alterado para {index_mapa}")
                     else:
-                        print("Você já está no último mapa!")
+                        #print("Você já está no último mapa!")
                         index_mapa -= 1  # Volta para o último mapa válido
         jogador.movimentar(grupo_obstaculos)
 
@@ -147,6 +155,7 @@ def game_loop(janela, assets, lista_mapas):
             moedas_coletadas += 1  # Incrementa o contador de moedas coletadas
         if jogador.verificar_colisao_espinho(grupo_espinhos):
             jogador.direcao = 'parado'
+            
 
         # Verifica vida do jogador
         if jogador.vida == 0:

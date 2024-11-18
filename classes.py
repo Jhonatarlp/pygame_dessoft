@@ -39,7 +39,7 @@ class Espinho(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x + deslocamento_x
         self.rect.y = y + deslocamento_y
-        print(f"Espinho criado: rect ({self.rect.x}, {self.rect.y}, {self.rect.width}, {self.rect.height})")
+        #print(f"Espinho criado: rect ({self.rect.x}, {self.rect.y}, {self.rect.width}, {self.rect.height})")
 
     def desenhar(self, janela):
         """Desenha o espinho na tela."""
@@ -97,8 +97,8 @@ class Jogador:
         colisao_espinho = pygame.sprite.spritecollide(self, grupo_espinhos, False)
         if colisao_espinho:
             self.vida -= 1 
-            print(f"Colisão detectada com espinho na posição: {self.rect.topleft}")
-            print(f'a vida é {self.vida}')
+            #print(f"Colisão detectada com espinho na posição: {self.rect.topleft}")
+            #print(f'a vida é {self.vida}')
             self.posicao = self.posicao_inicial
             self.rect.topleft = (self.posicao.x, self.posicao.y)
         return colisao_espinho    
