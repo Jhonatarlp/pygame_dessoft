@@ -1,4 +1,4 @@
-# 🦊 **JPygame Dessoft: Tomb Of Foxy** 🎮
+# 🦊 **Pygame Dessoft: Tomb Of Foxy** 🎮
 
 ## 📖 **Descrição do Projeto**
 Este é um jogo de aventura onde o jogador controla uma raposa que deve explorar labirintos, coletar moedas, evitar armadilhas e alcançar o final de cada mapa. Desenvolvido utilizando a biblioteca **Pygame**, o jogo oferece desafios em mapas progressivamente mais difíceis, com animações, música de fundo e uma tela final comemorativa ao completar todos os desafios.
