@@ -31,17 +31,6 @@ VERDE = (0, 255, 0)
 AZUL = (0, 0, 255)
 AMARELO = (255, 255, 0)
 
-# Define os tipos de tiles
-# Os underscores no final são apenas para manter todas as variáveis com o mesmo tamanho.
-MCBD = 0
-MCBE = 1
-MCB = 2
-MC = 3
-MB = 4
-E = 5
-MTL = 6
-V = 7
-
 #lista de mapas
 lista_mapas = [MAPA1, MAPA2, MAPA3]
 mapa = MAPA1

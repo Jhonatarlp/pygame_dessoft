@@ -23,9 +23,9 @@ def carrega_assets():
         'vacuo': pygame.image.load(IMG_DIR / 'vacuo.png').convert_alpha(),
         'fim': pygame.image.load(IMG_DIR / 'fim1.png').convert_alpha(),
         'caminho': pygame.image.load(IMG_DIR / 'caminho.png').convert_alpha(),
-        'espinho': pygame.image.load(IMG_DIR / 'espinho.png').convert_alpha(),
-        # 'jogador': pygame.image.load(IMG_DIR / 'foxy1.png').convert_alpha(),  
+        'espinho': pygame.image.load(IMG_DIR / 'espinho.png').convert_alpha(),  
     }
+    
     # Redimensiona as imagens para o tamanho do tile
     for key in assets:
         assets[key] = pygame.transform.scale(assets[key], (TAMANHO_QUADRADO, TAMANHO_QUADRADO))
@@ -91,47 +91,16 @@ def carregar_mapa(mapa, assets, largura_tela, altura_tela):
             elif tipo_quadrado == 'espinho':
                 espinho = Espinho(x, y, assets['espinho'], deslocamento_x, deslocamento_y)
                 grupo_espinhos.add(espinho)
-                #print(f"Espinho adicionado na posição: ({espinho.rect.x}, {espinho.rect.y})")
+                
             elif tipo_quadrado == 'fim':
                 fim = Fim(x // constantes.TAMANHO_QUADRADO, y // constantes.TAMANHO_QUADRADO, assets, deslocamento_x, deslocamento_y)
                 group_fim.add(fim)
             elif tipo_quadrado == 'inicio':  # Encontra o ponto inicial
                 quadrado = Tile(assets['caminho'], linha, coluna, tipo_quadrado, deslocamento_x, deslocamento_y)
                 grupo_inicios.add(quadrado)
-                #print(f"Tile de início adicionado: linha {linha}, coluna {coluna}, posição ({quadrado.rect.x}, {quadrado.rect.y})")
+                
     return mapa_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios
 
-def tela_final(janela, tempo_gasto):
-    # Define o fundo preto
-    janela.fill((0, 0, 0))
-
-    # Configura fontes e mensagens
-    fonte_grande = pygame.font.SysFont(None, 72)
-    fonte_pequena = pygame.font.SysFont(None, 36)
-
-    mensagem_parabens = fonte_grande.render("Parabéns!", True, (255, 255, 255))
-    mensagem_tempo = fonte_pequena.render(f"Você terminou em {tempo_gasto:.2f} segundos!", True, (255, 255, 255))
-    mensagem_sair = fonte_pequena.render("Pressione qualquer tecla para sair.", True, (255, 255, 255))
-
-    # Centraliza as mensagens na tela
-    rect_parabens = mensagem_parabens.get_rect(center=(LARGURA // 2, ALTURA // 3))
-    rect_tempo = mensagem_tempo.get_rect(center=(LARGURA // 2, ALTURA // 2))
-    rect_sair = mensagem_sair.get_rect(center=(LARGURA // 2, ALTURA // 1.5))
-
-    # Desenha as mensagens na janela
-    janela.blit(mensagem_parabens, rect_parabens)
-    janela.blit(mensagem_tempo, rect_tempo)
-    janela.blit(mensagem_sair, rect_sair)
-
-    pygame.display.flip()
-    while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
-            if event.type == KEYDOWN:
-                pygame.quit()
-                exit()
 
 def game_loop(janela, assets, lista_mapas):
     global timer
@@ -166,6 +135,7 @@ def game_loop(janela, assets, lista_mapas):
                 # Atalho para mudar o mapa (tecla TAB)
                 if event.key == pygame.K_TAB:
                     index_mapa += 1
+                    
                     if index_mapa < len(lista_mapas):
                         # Carrega o próximo mapa
                         MAPA_tiles, grupo_obstaculos, grupo_moedas, grupo_espinhos, group_fim, grupo_inicios = carregar_mapa(
@@ -175,10 +145,8 @@ def game_loop(janela, assets, lista_mapas):
                         start = grupo_inicios.sprites()[0]
                         jogador.posicao = pygame.Vector2(start.rect.x, start.rect.y)
                         jogador.rect.topleft = (jogador.posicao.x, jogador.posicao.y)
-                        #print(f"Mapa alterado para {index_mapa}")
-                    else:
-                        # Exibe a tela final
-                        tela_final(janela, timer)
+                        jogador.posicao_inicial = pygame.Vector2(jogador.posicao.x, jogador.posicao.y)
+                
         jogador.movimentar(grupo_obstaculos)
 
         # Dentro do loop do jogo, logo após movimentar o jogador
@@ -203,7 +171,7 @@ def game_loop(janela, assets, lista_mapas):
                 start = grupo_inicios.sprites()[0]
                 jogador.resetar_posicao(start.rect.x, start.rect.y)
             else:
-                tela_game_over(janela)
+                tela_final(janela, timer)
                 return
             
         janela.fill(PRETO)

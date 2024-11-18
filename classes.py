@@ -3,6 +3,38 @@ import constantes
 import pygame
 from pygame.locals import QUIT, KEYDOWN
 
+def tela_final(janela, timer):
+    # Define o fundo preto
+    janela.fill((0, 0, 0))
+
+    # Configura fontes e mensagens
+    fonte_grande = pygame.font.SysFont(None, 72)
+    fonte_pequena = pygame.font.SysFont(None, 36)
+
+    mensagem_parabens = fonte_grande.render("Parabéns!", True, (255, 255, 255))
+    mensagem_tempo = fonte_pequena.render(f"Você terminou em {timer:.2f} segundos!", True, (255, 255, 255))
+    mensagem_sair = fonte_pequena.render("Pressione qualquer tecla para sair.", True, (255, 255, 255))
+
+    # Centraliza as mensagens na tela
+    rect_parabens = mensagem_parabens.get_rect(center=(constantes.LARGURA// 2, constantes.ALTURA// 3))
+    rect_tempo = mensagem_tempo.get_rect(center=(constantes.LARGURA // 2, constantes.ALTURA // 2))
+    rect_sair = mensagem_sair.get_rect(center=(constantes.LARGURA // 2, constantes.ALTURA // 1.5))
+
+    # Desenha as mensagens na janela
+    janela.blit(mensagem_parabens, rect_parabens)
+    janela.blit(mensagem_tempo, rect_tempo)
+    janela.blit(mensagem_sair, rect_sair)
+
+    pygame.display.flip()
+     # Espera que o jogador pressione uma tecla para sair
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()
+            if event.type == KEYDOWN:
+                return  # Voltar para a tela inicial ou reiniciar
+
 def tela_game_over(janela):
     # Carrega a imagem de "game over"
     imagem_game_over = pygame.image.load('assets/gameover.jfif').convert()
@@ -39,22 +71,12 @@ class Espinho(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x + deslocamento_x
         self.rect.y = y + deslocamento_y
-        #print(f"Espinho criado: rect ({self.rect.x}, {self.rect.y}, {self.rect.width}, {self.rect.height})")
+        #
 
     def desenhar(self, janela):
         """Desenha o espinho na tela."""
         janela.blit(self.image, self.rect)
 
-
-# Classe Obstáculo (obstáculo que "morre" ao colidir)
-# class Obstaculo(pygame.sprite.Sprite):
-#     def __init__(self, x, y):
-#         super().__init__()
-#         self.image = pygame.Surface((20, 20))  # Tamanho do obstáculo
-#         self.image.fill(constantes.VERMELHO)   # Cor do obstáculo
-#         self.rect = self.image.get_rect()
-#         self.rect.x = x
-#         self.rect.y = y
 
 class Moeda(pygame.sprite.Sprite):
     def __init__(self, x, y, imagem_moeda, deslocamento_x=0, deslocamento_y=0):
@@ -97,8 +119,6 @@ class Jogador:
         colisao_espinho = pygame.sprite.spritecollide(self, grupo_espinhos, False)
         if colisao_espinho:
             self.vida -= 1 
-            #print(f"Colisão detectada com espinho na posição: {self.rect.topleft}")
-            #print(f'a vida é {self.vida}')
             self.posicao = self.posicao_inicial
             self.rect.topleft = (self.posicao.x, self.posicao.y)
         return colisao_espinho    
