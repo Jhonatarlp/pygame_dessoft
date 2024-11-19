@@ -86,4 +86,4 @@ O jogo foi desenvolvido em Python com a biblioteca **Pygame**, utilizando os seg
 
 ---
 
-[Assista ao vídeo](https://youtu.be/NrGmNXJkmt4)
+[Assista ao vídeo](https://youtu.be/mtjTflLqeVU)
